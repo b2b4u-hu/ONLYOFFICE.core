@@ -31,24 +31,31 @@
  */
 
 #include "../js_base.h"
+#include <iostream>
 
 using namespace NSJSBase;
 int main(int argc, char *argv[])
 {
-    JSSmart<CJSContext> context = new CJSContext;
-    context->Initialize();
+    JSSmart<CJSContext> oContext = new CJSContext;
+    oContext->Initialize();
 
     {
-        JSSmart<CJSIsolateScope> isolate_scope = context->CreateIsolateScope();
-        JSSmart<CJSLocalScope>   handle_scope  = context->CreateLocalScope();
+        JSSmart<CJSIsolateScope> oIsolateScope = oContext->CreateIsolateScope();
+        JSSmart<CJSLocalScope>   oHandleScope  = oContext->CreateLocalScope();
 
-        context->CreateGlobalForContext();
-        context->CreateContext();
+        oContext->CreateContext();
 
-        JSSmart<CJSValue> v = context->createString("hello");
+        JSSmart<CJSContextScope> oContextScope = oContext->CreateContextScope();
+        JSSmart<CJSValue> oRes = oContext->runScript("var v1 = 'Hello' + ', World!'");
+
+        JSSmart<CJSObject> oGlobal = oContext->GetGlobal();
+        JSSmart<CJSValue> oVar1 = oGlobal->get("v1");
+
+        std::string strVar1 = oVar1->toStringA();
+        std::cout << strVar1 << std::endl;
     }
 
-    context->Dispose();
+    oContext->Dispose();
 
     return 0;
 }
