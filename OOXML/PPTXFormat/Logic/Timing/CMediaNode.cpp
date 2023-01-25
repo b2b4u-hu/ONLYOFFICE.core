@@ -43,8 +43,8 @@ namespace PPTX
 
 			XmlMacroReadAttributeBase(node, L"mute", mute);
 			XmlMacroReadAttributeBase(node, L"numSld", numSld);
-			XmlMacroReadAttributeBase(node, L"showWhenStopped", showWhenStopped);
-			XmlMacroReadAttributeBase(node, L"vol", vol);
+                        XmlMacroReadAttributeBase(node, L"showWhenStopped", showWhenStopped);
+                        XmlMacroReadAttributeBase(node, L"vol", vol);
 
 			Normalize();
 
@@ -55,8 +55,8 @@ namespace PPTX
 			XmlUtils::CAttribute oAttr;
 			oAttr.Write(_T("mute"), mute);
 			oAttr.Write(_T("numSld"), numSld);
-			oAttr.Write(_T("showWhenStopped"), showWhenStopped);
-			oAttr.Write(_T("vol"), vol);
+                        oAttr.Write(_T("showWhenStopped"), showWhenStopped);
+                        oAttr.Write(_T("vol"), vol);
 
 			XmlUtils::CNodeValue oValue;
 			oValue.Write(cTn);

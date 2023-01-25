@@ -642,6 +642,7 @@ void Timing_2010::FillCTnRecursive(CRecordExtTimeNodeContainer *pETNC, PPTX::Log
     ConvertCTnIterate(pETNC, oCTn);
     ConvertCTnEndSync(pETNC, oCTn);
     ConvertCTnIterate(pETNC, oCTn);
+    ConvertCTnSubTnLst(pETNC, oCTn);
     ConvertCTnStCondLst(pETNC, oCTn);
 
     cTNLevel--;
@@ -953,10 +954,20 @@ void Timing_2010::FillAudio(CRecordExtTimeNodeContainer *pETNC, PPTX::Logic::Aud
         {
             oAudio.cMediaNode.tgtEl.spTgt = new PPTX::Logic::SpTgt;
             oAudio.cMediaNode.tgtEl.spTgt->spid = std::to_wstring(pCVEC->m_oVisualShapeAtom.m_nObjectIdRef);
-            //            oAudio.isNarration = true;
-            //            oAudio.cMediaNode.showWhenStopped = false;
+
         } else
             return;
+
+        if (pETNC->m_pTimePropertyList)
+        {
+            auto pPropVolume = pETNC->m_pTimePropertyList->getProp<CRecordTimeMediaVolume>();
+            if (pPropVolume)
+                oAudio.cMediaNode.vol = pPropVolume->m_Value * 100000;
+
+            auto pPropHideFlag = pETNC->m_pTimePropertyList->getProp<CRecordTimeHideWhenStopped>();
+            if (pPropHideFlag)
+                oAudio.cMediaNode.showWhenStopped = !pPropHideFlag->m_Value;
+        }
         FillCTnRecursive(pETNC, oAudio.cMediaNode.cTn);
     }
 }

@@ -49,6 +49,15 @@ public:
 
     virtual void ReadFromStream ( SRecordHeader & oHeader, POLE::Stream* pStream ) override;
 
+    template<class T>
+    const T* getProp()
+    {
+        for (const auto* pProp : m_arrElements)
+            if (dynamic_cast<const T*>(pProp))
+                return static_cast<const T*>(pProp);
+        return nullptr;
+    }
+
     bool IsEmpty ();
     void ClearNodes ();
 

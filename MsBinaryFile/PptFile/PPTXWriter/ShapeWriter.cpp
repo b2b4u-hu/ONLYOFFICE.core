@@ -634,7 +634,7 @@ void PPT::CShapeWriter::WriteImageInfo()
 
 //        if ((int)pAudioElement->m_strAudioFileName.find(L".WAV") == -1 &&
 //                (int)pAudioElement->m_strAudioFileName.find(L".wav") == -1)
-//            m_oWriter.WriteString(L"<a:wavAudioFile r:embed=\"" + strRid + L"\"/>");
+//            m_oWriter.WriteString(L"<a:wavAudioFile r:embed=\"" + strRid + L"\"/>");      // todo bug 59559 here. audio record
 //        else
             m_oWriter.WriteString(L"<a:audioFile r:link=\"" + strRid + L"\"/>"); // todo for anim connection
 
