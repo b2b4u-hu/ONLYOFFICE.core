@@ -43,44 +43,55 @@ int main(int argc, char *argv[])
     oContext2->Initialize();
 
     {
-        // Work with first context
+        // Create first context
 
         JSSmart<CJSIsolateScope> oIsolateScope1 = oContext1->CreateIsolateScope();
         JSSmart<CJSLocalScope>   oHandleScope1  = oContext1->CreateLocalScope();
 
         oContext1->CreateContext();
 
-        JSSmart<CJSContextScope> oContextScope1 = oContext1->CreateContextScope();
-        JSSmart<CJSObject> oGlobal1 = oContext1->GetGlobal();
-
-        JSSmart<CJSValue> oVar2 = oContext1->createString("Hel");
-        oGlobal1->set("v2", oVar2.GetPointer());
-
-        JSSmart<CJSValue> oRes1 = oContext1->runScript("var v1 = v2 + 'lo'");
-        JSSmart<CJSValue> oVar1 = oGlobal1->get("v1");
-
-        // Work with second context
+        // Create second context
 
         JSSmart<CJSIsolateScope> oIsolateScope2 = oContext2->CreateIsolateScope();
         JSSmart<CJSLocalScope>   oHandleScope2  = oContext2->CreateLocalScope();
 
         oContext2->CreateContext();
 
+        // Enter first context
+
+        JSSmart<CJSContextScope> oContextScope1 = oContext1->CreateContextScope();
+        JSSmart<CJSObject> oGlobal1 = oContext1->GetGlobal();
+
+        // Work with first context
+
+        JSSmart<CJSValue> oVar2 = oContext1->createString("Hel");
+        oGlobal1->set("v2", oVar2.GetPointer());
+
+        JSSmart<CJSValue> oRes1 = oContext1->runScript("var v1 = v2 + 'lo'");
+        JSSmart<CJSValue> oVar1 = oGlobal1->get("v1");
+        std::string strVar1 = oVar1->toStringA();
+
+        // Enter second context
+
         JSSmart<CJSContextScope> oContextScope2 = oContext2->CreateContextScope();
         JSSmart<CJSObject> oGlobal2 = oContext2->GetGlobal();
+
+        // Work with second context
 
         JSSmart<CJSValue> oVar4 = oContext2->createString("Wor");
         oGlobal1->set("v4", oVar4.GetPointer());
 
         JSSmart<CJSValue> oRes2 = oContext2->runScript("var v3 = v4 + 'ld!'");
+
         JSSmart<CJSValue> oVar3 = oGlobal2->get("v3");
+        std::string strVar3 = oVar3->toStringA();
 
         // Print both variables
 
-        std::string strVar1 = oVar1->toStringA();
+        strVar1 = oVar1->toStringA();
         std::cout << strVar1 << std::endl;
 
-        std::string strVar3 = oVar3->toStringA();
+        strVar3 = oVar3->toStringA();
         std::cout << strVar3 << std::endl;
     }
 
