@@ -25,10 +25,10 @@
 #ifdef V8_VERSION_89_PLUS
 #define kV8NormalString v8::NewStringType::kNormal
 #define kV8ProduceCodeCache v8::ScriptCompiler::kEagerCompile
-#define V8ContextFirstArg CV8Worker::GetCurrentContext(),
-#define V8ContextOneArg CV8Worker::GetCurrentContext()
-#define V8IsolateFirstArg CV8Worker::GetCurrent(),
-#define V8IsolateOneArg CV8Worker::GetCurrent()
+#define V8ContextFirstArg isolate->GetCurrentContext(),
+#define V8ContextOneArg isolate->GetCurrentContext()
+#define V8IsolateFirstArg isolate,
+#define V8IsolateOneArg isolate
 #define V8ToChecked ToChecked
 #else
 #define kV8NormalString v8::NewStringType::kNormal
@@ -211,12 +211,13 @@ namespace NSJSBase
     {
     public:
         v8::Local<V> value;
+        v8::Isolate* isolate;
 
-        CJSValueV8Template()
+        CJSValueV8Template(v8::Isolate* _isolate) : isolate(_isolate)
         {
         }
 
-        CJSValueV8Template(const v8::Local<V>& _value)
+        CJSValueV8Template(v8::Isolate* _isolate, const v8::Local<V>& _value) : isolate(_isolate)
         {
             value = _value;
         }
@@ -316,10 +317,11 @@ namespace NSJSBase
     class CJSValueV8TemplatePrimitive : public CJSValueV8Template<v8::Value, CJSValue>
     {
     public:
-        CJSValueV8TemplatePrimitive()
+        CJSValueV8TemplatePrimitive(v8::Isolate* _isolate) : CJSValueV8Template<v8::Value, CJSValue>(_isolate)
         {
         }
-        CJSValueV8TemplatePrimitive(const v8::Local<v8::Value>& _value) : CJSValueV8Template<v8::Value, CJSValue>(_value)
+
+        CJSValueV8TemplatePrimitive(v8::Isolate* _isolate, const v8::Local<v8::Value>& _value) : CJSValueV8Template<v8::Value, CJSValue>(_isolate, _value)
         {
         }
 
@@ -330,12 +332,12 @@ namespace NSJSBase
 
         virtual void doUndefined()
         {
-            value = v8::Undefined(CV8Worker::GetCurrent());
+            value = v8::Undefined(isolate);
         }
 
         virtual void doNull()
         {
-            value = v8::Null(CV8Worker::GetCurrent());
+            value = v8::Null(isolate);
         }
 
         virtual bool toBool()
@@ -392,7 +394,7 @@ namespace NSJSBase
     class CJSObjectV8 : public CJSValueV8Template<v8::Object, CJSObject>
     {
     public:
-        CJSObjectV8()
+        CJSObjectV8(v8::Isolate* _isolate) : CJSValueV8Template<v8::Object, CJSObject>(_isolate)
         {
         }
 
@@ -403,8 +405,8 @@ namespace NSJSBase
 
         virtual CJSValue* get(const char* name)
         {
-            CJSValueV8* _value = new CJSValueV8();
-            v8::Local<v8::String> _name = CreateV8String(CV8Worker::GetCurrent(), name);
+            CJSValueV8* _value = new CJSValueV8(isolate);
+            v8::Local<v8::String> _name = CreateV8String(isolate, name);
             _value->value = value->Get(V8ContextFirstArg _name).ToLocalChecked();
             return _value;
         }
@@ -412,21 +414,19 @@ namespace NSJSBase
         virtual void set(const char* name, CJSValue* value_param)
         {
             CJSValueV8* _value = static_cast<CJSValueV8*>(value_param);
-            v8::Local<v8::String> _name = CreateV8String(CV8Worker::GetCurrent(), name);
+            v8::Local<v8::String> _name = CreateV8String(isolate, name);
             value->Set(V8ContextFirstArg _name, _value->value);
         }
 
         virtual void set(const char* name, const int& _value)
         {
-            v8::Isolate* isolate = CV8Worker::GetCurrent();
-            v8::Local<v8::String> _name = CreateV8String(CV8Worker::GetCurrent(), name);
+            v8::Local<v8::String> _name = CreateV8String(isolate, name);
             value->Set(V8ContextFirstArg _name, v8::Integer::New(isolate, _value));
         }
 
         virtual void set(const char* name, const double& _value)
         {
-            v8::Isolate* isolate = CV8Worker::GetCurrent();
-            v8::Local<v8::String> _name = CreateV8String(CV8Worker::GetCurrent(), name);
+            v8::Local<v8::String> _name = CreateV8String(isolate, name);
             value->Set(V8ContextFirstArg _name, v8::Number::New(isolate, _value));
         }
 
@@ -443,10 +443,10 @@ namespace NSJSBase
 #endif
             LOGGER_START
 
-            v8::Local<v8::String> _name = CreateV8String(CV8Worker::GetCurrent(), name);
+            v8::Local<v8::String> _name = CreateV8String(isolate, name);
             v8::Handle<v8::Value> _func = value->Get(V8ContextFirstArg _name).ToLocalChecked();
 
-            CJSValueV8* _return = new CJSValueV8();
+            CJSValueV8* _return = new CJSValueV8(isolate);
             if (_func->IsFunction())
             {
                 v8::Handle<v8::Function> _funcN = v8::Handle<v8::Function>::Cast(_func);
@@ -480,7 +480,7 @@ namespace NSJSBase
 
         virtual JSSmart<CJSValue> toValue()
         {
-            CJSValueV8* _value = new CJSValueV8();
+            CJSValueV8* _value = new CJSValueV8(isolate);
             _value->value = value;
             return _value;
         }
@@ -491,7 +491,7 @@ namespace NSJSBase
     public:
         int m_count;
     public:
-        CJSArrayV8()
+        CJSArrayV8(v8::Isolate* _isolate) : CJSValueV8Template<v8::Array, CJSArray>(_isolate)
         {
             m_count = 0;
         }
@@ -507,7 +507,7 @@ namespace NSJSBase
 
         virtual JSSmart<CJSValue> get(const int& index)
         {
-            CJSValueV8* _value = new CJSValueV8();
+            CJSValueV8* _value = new CJSValueV8(isolate);
             _value->value = value->Get(V8ContextFirstArg index).ToLocalChecked();
             return _value;
         }
@@ -526,52 +526,52 @@ namespace NSJSBase
 
         virtual void set(const int& index, const bool& _value)
         {
-            value->Set(V8ContextFirstArg index, v8::Boolean::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg index, v8::Boolean::New(isolate, _value));
         }
 
         virtual void set(const int& index, const int& _value)
         {
-            value->Set(V8ContextFirstArg index, v8::Integer::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg index, v8::Integer::New(isolate, _value));
         }
 
         virtual void set(const int& index, const double& _value)
         {
-            value->Set(V8ContextFirstArg index, v8::Number::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg index, v8::Number::New(isolate, _value));
         }
 
         virtual void add_null()
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Null(CV8Worker::GetCurrent()));
+            value->Set(V8ContextFirstArg m_count++, v8::Null(isolate));
         }
 
         virtual void add_undefined()
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Undefined(CV8Worker::GetCurrent()));
+            value->Set(V8ContextFirstArg m_count++, v8::Undefined(isolate));
         }
 
         virtual void add_bool(const bool& _value)
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Boolean::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg m_count++, v8::Boolean::New(isolate, _value));
         }
 
         virtual void add_byte(const BYTE& _value)
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Integer::New(CV8Worker::GetCurrent(), (int)_value));
+            value->Set(V8ContextFirstArg m_count++, v8::Integer::New(isolate, (int)_value));
         }
 
         virtual void add_int(const int& _value)
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Integer::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg m_count++, v8::Integer::New(isolate, _value));
         }
 
         virtual void add_double(const double& _value)
         {
-            value->Set(V8ContextFirstArg m_count++, v8::Number::New(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg m_count++, v8::Number::New(isolate, _value));
         }
 
         virtual void add_stringa(const std::string& _value)
         {
-            value->Set(V8ContextFirstArg m_count++, CreateV8String(CV8Worker::GetCurrent(), _value));
+            value->Set(V8ContextFirstArg m_count++, CreateV8String(isolate, _value));
         }
 
         virtual void add_string(const std::wstring& _value)
@@ -582,7 +582,7 @@ namespace NSJSBase
 
         virtual JSSmart<CJSValue> toValue()
         {
-            CJSValueV8* _value = new CJSValueV8();
+            CJSValueV8* _value = new CJSValueV8(isolate);
             _value->value = value;
             return _value;
         }
@@ -591,11 +591,11 @@ namespace NSJSBase
     class CJSTypedArrayV8 : public CJSValueV8Template<v8::Uint8Array, CJSTypedArray>
     {
     public:
-        CJSTypedArrayV8(BYTE* data = NULL, int count = 0, const bool& isExternalize = true)
+        CJSTypedArrayV8(v8::Isolate* _isolate, BYTE* data = NULL, int count = 0, const bool& isExternalize = true) : CJSValueV8Template<v8::Uint8Array, CJSTypedArray>(isolate)
         {
             if (0 < count)
             {
-                v8::Local<v8::ArrayBuffer> _buffer = v8::ArrayBuffer::New(CV8Worker::GetCurrent(), (void*)data, (size_t)count,
+                v8::Local<v8::ArrayBuffer> _buffer = v8::ArrayBuffer::New(isolate, (void*)data, (size_t)count,
                         isExternalize ? v8::ArrayBufferCreationMode::kExternalized : v8::ArrayBufferCreationMode::kInternalized);
                 value = v8::Uint8Array::New(_buffer, 0, (size_t)count);
             }
@@ -622,7 +622,7 @@ namespace NSJSBase
 
         virtual JSSmart<CJSValue> toValue()
         {
-            CJSValueV8* _value = new CJSValueV8();
+            CJSValueV8* _value = new CJSValueV8(isolate);
             _value->value = value;
             return _value;
         }
@@ -631,7 +631,7 @@ namespace NSJSBase
     class CJSFunctionV8 : public CJSValueV8Template<v8::Function, CJSFunction>
     {
     public:
-        CJSFunctionV8()
+        CJSFunctionV8(v8::Isolate* _isolate) : CJSValueV8Template<v8::Function, CJSFunction>(_isolate)
         {
         }
         virtual ~CJSFunctionV8()
@@ -642,7 +642,7 @@ namespace NSJSBase
         virtual CJSValue* Call(CJSValue* recv, int argc, JSSmart<CJSValue> argv[])
         {
             CJSValueV8* _value = static_cast<CJSValueV8*>(recv);
-            CJSValueV8* _return = new CJSValueV8();
+            CJSValueV8* _return = new CJSValueV8(isolate);
             if (0 == argc)
             {
                 _return->value = value->Call(V8ContextFirstArg _value->value, 0, NULL).ToLocalChecked();
@@ -665,7 +665,7 @@ namespace NSJSBase
     template<typename V, typename B>
     CJSObject* CJSValueV8Template<V, B>::toObject()
     {
-        CJSObjectV8* _value = new CJSObjectV8();
+        CJSObjectV8* _value = new CJSObjectV8(isolate);
         _value->value = value->ToObject(V8ContextOneArg).ToLocalChecked();
         return _value;
     }
@@ -673,7 +673,7 @@ namespace NSJSBase
     template<typename V, typename B>
     CJSArray* CJSValueV8Template<V, B>::toArray()
     {
-        CJSArrayV8* _value = new CJSArrayV8();
+        CJSArrayV8* _value = new CJSArrayV8(isolate);
         _value->value = v8::Local<v8::Array>::Cast(value);
         return _value;
     }
@@ -681,7 +681,7 @@ namespace NSJSBase
     template<typename V, typename B>
     CJSTypedArray* CJSValueV8Template<V, B>::toTypedArray()
     {
-        CJSTypedArrayV8* _value = new CJSTypedArrayV8();
+        CJSTypedArrayV8* _value = new CJSTypedArrayV8(isolate);
         _value->value = v8::Local<v8::Uint8Array>::Cast(value);
         return _value;
     }
@@ -689,7 +689,7 @@ namespace NSJSBase
     template<typename V, typename B>
     CJSFunction* CJSValueV8Template<V, B>::toFunction()
     {
-        CJSFunctionV8* _value = new CJSFunctionV8();
+        CJSFunctionV8* _value = new CJSFunctionV8(isolate);
         _value->value = v8::Local<v8::Function>::Cast(value);
         return _value;
     }
@@ -701,10 +701,11 @@ namespace NSJSBase
     class CV8TryCatch : public CJSTryCatch
     {
     private:
+        v8::Isolate* isolate;
         v8::TryCatch try_catch;
 
     public:
-        CV8TryCatch() : CJSTryCatch(), try_catch(V8IsolateOneArg)
+        CV8TryCatch(v8::Isolate* _isolate) : CJSTryCatch(), isolate(_isolate), try_catch(_isolate)
         {
         }
         virtual ~CV8TryCatch()
@@ -718,10 +719,10 @@ namespace NSJSBase
             {
                 int nLineNumber             = try_catch.Message()->GetLineNumber(V8ContextOneArg).V8ToChecked();
 
-                JSSmart<CJSValueV8> _line = new CJSValueV8();
+                JSSmart<CJSValueV8> _line = new CJSValueV8(isolate);
                 _line->value = try_catch.Message()->GetSourceLine(V8ContextOneArg).ToLocalChecked();
 
-                JSSmart<CJSValueV8> _exception = new CJSValueV8();
+                JSSmart<CJSValueV8> _exception = new CJSValueV8(isolate);
                 _exception->value = try_catch.Message()->Get();
 
                 std::string strCode        = _line->toStringA();
@@ -797,7 +798,7 @@ namespace NSJSBase
             v8::Handle<v8::External> field = v8::Handle<v8::External>::Cast(obj->GetInternalField(0));
             CJSEmbedObject* pEmbedObject = (NSJSBase::CJSEmbedObject*)field->Value();
 
-            handle.Reset(CV8Worker::GetCurrent(), obj);
+            handle.Reset(obj->GetIsolate(), obj);
             handle.SetWeak(pEmbedObject, EmbedObjectWeakCallback, v8::WeakCallbackType::kParameter);
 
             pEmbedObject->embed_native_internal = this;
@@ -842,18 +843,18 @@ inline NSJSBase::CJSEmbedObject* unwrap_native(const v8::Local<v8::Object>& valu
 }
 inline NSJSBase::CJSEmbedObject* unwrap_native2(const v8::Local<v8::Value>& value)
 {
-    v8::Local<v8::Object> _obj = value->ToObject(V8ContextOneArg).ToLocalChecked();
+    v8::Local<v8::Object> _obj = value->ToObject(CV8Worker::GetCurrentContext()).ToLocalChecked();
     v8::Handle<v8::External> field = v8::Handle<v8::External>::Cast(_obj->GetInternalField(0));
     return (NSJSBase::CJSEmbedObject*)field->Value();
 }
 
 inline JSSmart<NSJSBase::CJSValue> js_value(const v8::Local<v8::Value>& value)
 {
-    return new NSJSBase::CJSValueV8(value);
+    return new NSJSBase::CJSValueV8(CV8Worker::GetCurrent(), value);
 }
 inline JSSmart<NSJSBase::CJSValue> js_object(const v8::Local<v8::Object>& value)
 {
-    NSJSBase::CJSObjectV8* _ret = new NSJSBase::CJSObjectV8();
+    NSJSBase::CJSObjectV8* _ret = new NSJSBase::CJSObjectV8(CV8Worker::GetCurrent());
     _ret->value = value;
     return _ret;
 }

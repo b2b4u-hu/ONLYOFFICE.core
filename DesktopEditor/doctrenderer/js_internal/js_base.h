@@ -251,24 +251,24 @@ namespace NSJSBase
         void MoveToThread(ASC_THREAD_ID* id = NULL);
 
     public:
-        static CJSValue* createUndefined();
-        static CJSValue* createNull();
-        static CJSValue* createBool(const bool& value);
-        static CJSValue* createInt(const int& value);
-        static CJSValue* createUInt(const unsigned int& value);
-        static CJSValue* createDouble(const double& value);
-        static CJSValue* createString(const char* value, const int& length = -1);
-        static CJSValue* createString(const wchar_t* value, const int& length = -1);
-        static CJSValue* createString(const std::string& value);
-        static CJSValue* createString(const std::wstring& value);
+        CJSValue* createUndefined();
+        CJSValue* createNull();
+        CJSValue* createBool(const bool& value);
+        CJSValue* createInt(const int& value);
+        CJSValue* createUInt(const unsigned int& value);
+        CJSValue* createDouble(const double& value);
+        CJSValue* createString(const char* value, const int& length = -1);
+        CJSValue* createString(const wchar_t* value, const int& length = -1);
+        CJSValue* createString(const std::string& value);
+        CJSValue* createString(const std::wstring& value);
 
-        static CJSObject* createObject();
+        CJSObject* createObject();
 
-        static CJSArray* createArray(const int& count);
+        CJSArray* createArray(const int& count);
 
-        static CJSTypedArray* createUint8Array(BYTE* data = NULL, int count = 0, const bool& isExternalize = true);
+        CJSTypedArray* createUint8Array(BYTE* data = NULL, int count = 0, const bool& isExternalize = true);
 
-        static CJSValue* createUint8Array(const std::wstring& sFilePath)
+        CJSValue* createUint8Array(const std::wstring& sFilePath)
         {
             NSFile::CFileBinary oFileBinary;
             if (oFileBinary.OpenFile(sFilePath))
@@ -284,9 +284,6 @@ namespace NSJSBase
             }
             return CJSContext::createNull();
         }
-
-    public:
-        static CJSContext* GetCurrent();
 
     public:
         static void ExternalInitialize(const std::wstring& sDirectory);

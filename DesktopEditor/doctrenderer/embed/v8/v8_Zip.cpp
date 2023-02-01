@@ -51,7 +51,7 @@ namespace NSZip
 		CZipEmbed* pZip = new CZipEmbed();
 
 		v8::Local<v8::Object> obj = ZipTemplate->NewInstance(isolate->GetCurrentContext()).ToLocalChecked();
-		obj->SetInternalField(0, v8::External::New(CV8Worker::GetCurrent(), pZip));
+        obj->SetInternalField(0, v8::External::New(isolate, pZip));
 
 		NSJSBase::CJSEmbedObjectPrivate::CreateWeaker(obj);
 
@@ -61,6 +61,6 @@ namespace NSZip
 
 void CZipEmbed::CreateObjectInContext(const std::string& name, JSSmart<CJSContext> context)
 {
-	v8::Isolate* current = CV8Worker::GetCurrent();
+    v8::Isolate* current = context->m_internal->m_isolate;
 	context->m_internal->m_global->Set(current, name.c_str(), v8::FunctionTemplate::New(current, NSZip::CreateNativeZip));
 }

@@ -42,7 +42,7 @@ JSSmart<CJSValue> CZipEmbed::open(JSSmart<CJSValue> typedArray_or_Folder)
 JSSmart<CJSValue> CZipEmbed::create()
 {
 	RELEASEOBJECT(m_pFolder);
-	m_pFolder = new CZipFolderMemory();
+    m_pFolder = new CZipFolderMemory();
 	return CJSContext::createBool(true);
 }
 JSSmart<CJSValue> CZipEmbed::save()

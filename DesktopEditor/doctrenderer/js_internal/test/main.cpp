@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
         // Work with second context
 
         JSSmart<CJSValue> oVar4 = oContext2->createString("Wor");
-        oGlobal1->set("v4", oVar4.GetPointer());
+        oGlobal2->set("v4", oVar4.GetPointer());
 
         JSSmart<CJSValue> oRes2 = oContext2->runScript("var v3 = v4 + 'ld!'");
 
