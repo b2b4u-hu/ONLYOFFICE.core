@@ -30,8 +30,10 @@
  *
  */
 
-#include "../js_base.h"
 #include <iostream>
+
+#include "../../embed/ZipEmbed.h"
+#include "../js_base.h"
 
 using namespace NSJSBase;
 int main(int argc, char *argv[])
@@ -44,55 +46,59 @@ int main(int argc, char *argv[])
 
     {
         // Create first context
-
         JSSmart<CJSIsolateScope> oIsolateScope1 = oContext1->CreateIsolateScope();
         JSSmart<CJSLocalScope>   oHandleScope1  = oContext1->CreateLocalScope();
+
+        oContext1->CreateGlobalForContext();
+        CZipEmbed::CreateObjectInContext("CZip", oContext1);
 
         oContext1->CreateContext();
 
         // Create second context
-
         JSSmart<CJSIsolateScope> oIsolateScope2 = oContext2->CreateIsolateScope();
         JSSmart<CJSLocalScope>   oHandleScope2  = oContext2->CreateLocalScope();
+
+        oContext2->CreateGlobalForContext();
+        CZipEmbed::CreateObjectInContext("CZip", oContext2);
 
         oContext2->CreateContext();
 
         // Enter first context
-
         JSSmart<CJSContextScope> oContextScope1 = oContext1->CreateContextScope();
         JSSmart<CJSObject> oGlobal1 = oContext1->GetGlobal();
 
         // Work with first context
-
-        JSSmart<CJSValue> oVar2 = oContext1->createString("Hel");
-        oGlobal1->set("v2", oVar2.GetPointer());
-
-        JSSmart<CJSValue> oRes1 = oContext1->runScript("var v1 = v2 + 'lo'");
-        JSSmart<CJSValue> oVar1 = oGlobal1->get("v1");
-        std::string strVar1 = oVar1->toStringA();
+        JSSmart<CJSValue> oRes1 = oContext1->runScript(
+            "var oZip = new CZip;\n"
+            "var files = oZip.open('" CURR_DIR "/../v8');"
+            "oZip.close();"
+        );
 
         // Enter second context
-
         JSSmart<CJSContextScope> oContextScope2 = oContext2->CreateContextScope();
         JSSmart<CJSObject> oGlobal2 = oContext2->GetGlobal();
 
         // Work with second context
+        JSSmart<CJSValue> oRes2 = oContext2->runScript(
+            "var oZip = new CZip;\n"
+            "var files = oZip.open('" CURR_DIR "/../jsc');"
+            "oZip.close();"
+        );
 
-        JSSmart<CJSValue> oVar4 = oContext2->createString("Wor");
-        oGlobal2->set("v4", oVar4.GetPointer());
+        // Print first result
+        JSSmart<CJSArray> oFiles1 = oGlobal1->get("files")->toArray();
+        std::cout << "\nRESULT FROM CONTEXT 1:\n";
+        for (int i = 0; i < oFiles1->getCount(); i++) {
+            std::cout << oFiles1->get(i)->toStringA() << std::endl;
+        }
 
-        JSSmart<CJSValue> oRes2 = oContext2->runScript("var v3 = v4 + 'ld!'");
+        // Print second result
+        JSSmart<CJSArray> oFiles2 = oGlobal2->get("files")->toArray();
+        std::cout << "\nRESULT FROM CONTEXT 2:\n";
+        for (int i = 0; i < oFiles2->getCount(); i++) {
+            std::cout << oFiles2->get(i)->toStringA() << std::endl;
+        }
 
-        JSSmart<CJSValue> oVar3 = oGlobal2->get("v3");
-        std::string strVar3 = oVar3->toStringA();
-
-        // Print both variables
-
-        strVar1 = oVar1->toStringA();
-        std::cout << strVar1 << std::endl;
-
-        strVar3 = oVar3->toStringA();
-        std::cout << strVar3 << std::endl;
     }
 
     oContext1->Dispose();

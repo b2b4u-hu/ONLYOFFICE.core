@@ -404,7 +404,7 @@ namespace NSJSBase
 		else
 			_value->doUndefined();
 #else
-		_value->value = v8::JSON::Parse(CreateV8String(CV8Worker::GetCurrent(), sTmp));
+        _value->value = v8::JSON::Parse(CreateV8String(m_internal->m_isolate, sTmp));
 #endif
 		return _value;
 	}
@@ -413,6 +413,14 @@ namespace NSJSBase
 	{
 		// none
 	}
+
+    // Creates copy of CJSContext for entered isolate
+    JSSmart<CJSContext> CJSContext::GetCurrent() {
+        CJSContext* ret = new CJSContext();
+        ret->m_internal->m_isolate = CV8Worker::GetCurrent();
+        ret->m_internal->m_context = CV8Worker::GetCurrentContext();
+        return ret;
+    }
 
 	void CJSContext::ExternalInitialize(const std::wstring& sDirectory)
 	{

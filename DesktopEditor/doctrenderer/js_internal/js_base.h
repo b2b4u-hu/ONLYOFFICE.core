@@ -278,12 +278,15 @@ namespace NSJSBase
                 DWORD dwSizeRead;
                 if (oFileBinary.ReadFile(pData, (DWORD)nFileSize, dwSizeRead))
                 {
-                    return CJSContext::createUint8Array(pData, (int)nFileSize, false);
+                    return createUint8Array(pData, (int)nFileSize, false);
                 }
                 NSAllocator::Free(pData, (size_t)nFileSize);
             }
-            return CJSContext::createNull();
+            return createNull();
         }
+
+    public:
+        static JSSmart<CJSContext> GetCurrent();
 
     public:
         static void ExternalInitialize(const std::wstring& sDirectory);

@@ -22,8 +22,18 @@ DESTDIR = $$PWD/build
 ADD_DEPENDENCY(graphics, kernel, kernel_network, UnicodeConverter, doctrenderer)
 
 core_linux {
+#    include($$CORE_ROOT_DIR/Common/3dParty/icu/icu.pri)
     LIBS += -Wl,-unresolved-symbols=ignore-in-shared-libs
     LIBS += -ldl
 }
 
+SOURCES +=  \
+    ../../embed/ZipEmbed.cpp \
+    ../../embed/v8/v8_Zip.cpp
+
+HEADERS +=  \
+    ../../embed/ZipEmbed.h
+
 SOURCES += main.cpp
+
+DEFINES += CURR_DIR=\\\"$$PWD_ROOT_DIR\\\"
