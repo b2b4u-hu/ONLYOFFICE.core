@@ -38,71 +38,70 @@
 using namespace NSJSBase;
 int main(int argc, char *argv[])
 {
-    JSSmart<CJSContext> oContext1 = new CJSContext;
-    oContext1->Initialize();
+	JSSmart<CJSContext> oContext1 = new CJSContext;
+	oContext1->Initialize();
 
-    JSSmart<CJSContext> oContext2 = new CJSContext;
-    oContext2->Initialize();
+	JSSmart<CJSContext> oContext2 = new CJSContext;
+	oContext2->Initialize();
 
-    {
-        // Create first context
-        JSSmart<CJSIsolateScope> oIsolateScope1 = oContext1->CreateIsolateScope();
-        JSSmart<CJSLocalScope>   oHandleScope1  = oContext1->CreateLocalScope();
+	{
+		// Create first context
+		JSSmart<CJSIsolateScope> oIsolateScope1 = oContext1->CreateIsolateScope();
+		JSSmart<CJSLocalScope> oHandleScope1 = oContext1->CreateLocalScope();
 
-        oContext1->CreateGlobalForContext();
-        CZipEmbed::CreateObjectInContext("CZip", oContext1);
+		oContext1->CreateGlobalForContext();
+		CZipEmbed::CreateObjectInContext("CZip", oContext1);
 
-        oContext1->CreateContext();
+		oContext1->CreateContext();
 
-        // Create second context
-        JSSmart<CJSIsolateScope> oIsolateScope2 = oContext2->CreateIsolateScope();
-        JSSmart<CJSLocalScope>   oHandleScope2  = oContext2->CreateLocalScope();
+		// Create second context
+		JSSmart<CJSIsolateScope> oIsolateScope2 = oContext2->CreateIsolateScope();
+		JSSmart<CJSLocalScope> oHandleScope2 = oContext2->CreateLocalScope();
 
-        oContext2->CreateGlobalForContext();
-        CZipEmbed::CreateObjectInContext("CZip", oContext2);
+		oContext2->CreateGlobalForContext();
+		CZipEmbed::CreateObjectInContext("CZip", oContext2);
 
-        oContext2->CreateContext();
+		oContext2->CreateContext();
 
-        // Enter first context
-        JSSmart<CJSContextScope> oContextScope1 = oContext1->CreateContextScope();
-        JSSmart<CJSObject> oGlobal1 = oContext1->GetGlobal();
+		// Enter first context
+		JSSmart<CJSContextScope> oContextScope1 = oContext1->CreateContextScope();
+		JSSmart<CJSObject> oGlobal1 = oContext1->GetGlobal();
 
-        // Work with first context
-        JSSmart<CJSValue> oRes1 = oContext1->runScript(
-            "var oZip = new CZip;\n"
-            "var files = oZip.open('" CURR_DIR "/../v8');"
-            "oZip.close();"
-        );
+		// Work with first context
+		JSSmart<CJSValue> oRes1 = oContext1->runScript(
+			"var oZip = new CZip;\n"
+			"var files = oZip.open('" CURR_DIR "/../v8');"
+			"oZip.close();");
 
-        // Enter second context
-        JSSmart<CJSContextScope> oContextScope2 = oContext2->CreateContextScope();
-        JSSmart<CJSObject> oGlobal2 = oContext2->GetGlobal();
+		// Enter second context
+		JSSmart<CJSContextScope> oContextScope2 = oContext2->CreateContextScope();
+		JSSmart<CJSObject> oGlobal2 = oContext2->GetGlobal();
 
-        // Work with second context
-        JSSmart<CJSValue> oRes2 = oContext2->runScript(
-            "var oZip = new CZip;\n"
-            "var files = oZip.open('" CURR_DIR "/../jsc');"
-            "oZip.close();"
-        );
+		// Work with second context
+		JSSmart<CJSValue> oRes2 = oContext2->runScript(
+			"var oZip = new CZip;\n"
+			"var files = oZip.open('" CURR_DIR "/../jsc');"
+			"oZip.close();");
 
-        // Print first result
-        JSSmart<CJSArray> oFiles1 = oGlobal1->get("files")->toArray();
-        std::cout << "\nRESULT FROM CONTEXT 1:\n";
-        for (int i = 0; i < oFiles1->getCount(); i++) {
-            std::cout << oFiles1->get(i)->toStringA() << std::endl;
-        }
+		// Print first result
+		JSSmart<CJSArray> oFiles1 = oGlobal1->get("files")->toArray();
+		std::cout << "\nRESULT FROM CONTEXT 1:\n";
+		for (int i = 0; i < oFiles1->getCount(); i++)
+		{
+			std::cout << oFiles1->get(i)->toStringA() << std::endl;
+		}
 
-        // Print second result
-        JSSmart<CJSArray> oFiles2 = oGlobal2->get("files")->toArray();
-        std::cout << "\nRESULT FROM CONTEXT 2:\n";
-        for (int i = 0; i < oFiles2->getCount(); i++) {
-            std::cout << oFiles2->get(i)->toStringA() << std::endl;
-        }
+		// Print second result
+		JSSmart<CJSArray> oFiles2 = oGlobal2->get("files")->toArray();
+		std::cout << "\nRESULT FROM CONTEXT 2:\n";
+		for (int i = 0; i < oFiles2->getCount(); i++)
+		{
+			std::cout << oFiles2->get(i)->toStringA() << std::endl;
+		}
+	}
 
-    }
+	oContext1->Dispose();
+	oContext2->Dispose();
 
-    oContext1->Dispose();
-    oContext2->Dispose();
-
-    return 0;
+	return 0;
 }

@@ -20,7 +20,7 @@ namespace NSZip
 
 	v8::Handle<v8::ObjectTemplate> CreateZipTemplate(v8::Isolate* isolate)
 	{
-        isolate->Enter();
+		isolate->Enter();
 		v8::EscapableHandleScope handle_scope(isolate);
 
 		v8::Local<v8::ObjectTemplate> result = v8::ObjectTemplate::New(isolate);
@@ -40,7 +40,7 @@ namespace NSZip
 		NSV8Objects::Template_Set(result, "encodeImage",     _encodeImage);
 		NSV8Objects::Template_Set(result, "getImageType",    _getImageType);
 
-        isolate->Exit();
+		isolate->Exit();
 		return handle_scope.Escape(result);
 	}
 
@@ -53,7 +53,7 @@ namespace NSZip
 		CZipEmbed* pZip = new CZipEmbed();
 
 		v8::Local<v8::Object> obj = ZipTemplate->NewInstance(isolate->GetCurrentContext()).ToLocalChecked();
-        obj->SetInternalField(0, v8::External::New(isolate, pZip));
+		obj->SetInternalField(0, v8::External::New(isolate, pZip));
 
 		NSJSBase::CJSEmbedObjectPrivate::CreateWeaker(obj);
 
@@ -63,6 +63,6 @@ namespace NSZip
 
 void CZipEmbed::CreateObjectInContext(const std::string& name, JSSmart<CJSContext> context)
 {
-    v8::Isolate* isolate = context->m_internal->m_isolate;
-    context->m_internal->m_global->Set(isolate, name.c_str(), v8::FunctionTemplate::New(isolate, NSZip::CreateNativeZip));
+	v8::Isolate* isolate = context->m_internal->m_isolate;
+	context->m_internal->m_global->Set(isolate, name.c_str(), v8::FunctionTemplate::New(isolate, NSZip::CreateNativeZip));
 }

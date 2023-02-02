@@ -7,8 +7,8 @@ JSSmart<CJSValue> CZipEmbed::open(JSSmart<CJSValue> typedArray_or_Folder)
 {
 	RELEASEOBJECT(m_pFolder);
 
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
-    if (typedArray_or_Folder->isTypedArray())
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	if (typedArray_or_Folder->isTypedArray())
 	{
 		JSSmart<CJSTypedArray> pArray = typedArray_or_Folder->toTypedArray();
 		CJSDataBuffer buffer = pArray->getData();
@@ -23,19 +23,19 @@ JSSmart<CJSValue> CZipEmbed::open(JSSmart<CJSValue> typedArray_or_Folder)
 	}
 
 	if (!m_pFolder)
-        return context->createNull();
+		return context->createNull();
 
 	std::vector<std::wstring> arFiles = m_pFolder->getFiles(L"", true);
 	if (arFiles.empty())
-        return context->createNull();
+		return context->createNull();
 
-    JSSmart<CJSArray> retFiles = context->createArray((int)arFiles.size());
+	JSSmart<CJSArray> retFiles = context->createArray((int)arFiles.size());
 
 	int nCurCount = 0;
 	for (std::vector<std::wstring>::const_iterator i = arFiles.begin(); i != arFiles.end(); i++)
 	{
-        const std::wstring& val = *i;
-        retFiles->set(nCurCount++, context->createString(val.empty() ? val : val.substr(1)));
+		const std::wstring& val = *i;
+		retFiles->set(nCurCount++, context->createString(val.empty() ? val : val.substr(1)));
 	}
 
 	return retFiles->toValue();
@@ -43,47 +43,47 @@ JSSmart<CJSValue> CZipEmbed::open(JSSmart<CJSValue> typedArray_or_Folder)
 JSSmart<CJSValue> CZipEmbed::create()
 {
 	RELEASEOBJECT(m_pFolder);
-    m_pFolder = new CZipFolderMemory();
-    return CJSContext::GetCurrent()->createBool(true);
+	m_pFolder = new CZipFolderMemory();
+	return CJSContext::GetCurrent()->createBool(true);
 }
 JSSmart<CJSValue> CZipEmbed::save()
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
-    if (!m_pFolder)
-        return context->createNull();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	if (!m_pFolder)
+		return context->createNull();
 
-    IFolder::CBuffer* pBuffer = m_pFolder->finalize();
+	IFolder::CBuffer* pBuffer = m_pFolder->finalize();
 
 	size_t nBufferSize = (size_t)pBuffer->Size;
 	BYTE* pMemory = NSJSBase::NSAllocator::Alloc(nBufferSize);
 	memcpy(pMemory, pBuffer->Buffer, nBufferSize);
 	RELEASEOBJECT(pBuffer);
 
-    return context->createUint8Array(pMemory, (int)nBufferSize, false);
+	return context->createUint8Array(pMemory, (int)nBufferSize, false);
 }
 JSSmart<CJSValue> CZipEmbed::getFile(JSSmart<CJSValue> filePath)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
-    if (!m_pFolder || !filePath->isString())
-        return context->createNull();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	if (!m_pFolder || !filePath->isString())
+		return context->createNull();
 
-    std::wstring sFilePath = filePath->toStringW();
+	std::wstring sFilePath = filePath->toStringW();
 	IFolder::CBuffer* pBuffer;
 	if (!m_pFolder->read(sFilePath, pBuffer))
-        return context->createNull();
+		return context->createNull();
 
 	size_t nBufferSize = (size_t)pBuffer->Size;
 	BYTE* pMemory = NSJSBase::NSAllocator::Alloc(nBufferSize);
 	memcpy(pMemory, pBuffer->Buffer, nBufferSize);
 	RELEASEOBJECT(pBuffer);
 
-    return context->createUint8Array(pMemory, (int)nBufferSize, false);
+	return context->createUint8Array(pMemory, (int)nBufferSize, false);
 }
 JSSmart<CJSValue> CZipEmbed::addFile(JSSmart<CJSValue> filePath, JSSmart<CJSValue> typedArray)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	if (!m_pFolder || !filePath->isString() || !typedArray->isTypedArray())
-        return context->createBool(false);
+		return context->createBool(false);
 
 	JSSmart<CJSTypedArray> typedArray2 = typedArray->toTypedArray();
 	CJSDataBuffer buffer = typedArray2->getData();
@@ -92,26 +92,26 @@ JSSmart<CJSValue> CZipEmbed::addFile(JSSmart<CJSValue> filePath, JSSmart<CJSValu
 	if (buffer.IsExternalize)
 		buffer.Free();
 
-    return context->createBool(true);
+	return context->createBool(true);
 }
 JSSmart<CJSValue> CZipEmbed::removeFile(JSSmart<CJSValue> filePath)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	if (!m_pFolder || !filePath->isString())
-        return context->createNull();
+		return context->createNull();
 
 	m_pFolder->remove(filePath->toStringW());
-    return context->createUndefined();
+	return context->createUndefined();
 }
 JSSmart<CJSValue> CZipEmbed::close()
 {
 	RELEASEOBJECT(m_pFolder);
-    return CJSContext::GetCurrent()->createUndefined();
+	return CJSContext::GetCurrent()->createUndefined();
 }
 
 JSSmart<CJSValue> CZipEmbed::decodeImage(JSSmart<CJSValue> typedArray, JSSmart<CJSValue> isRgba)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	JSSmart<CJSTypedArray> oArray = typedArray->toTypedArray();
 	NSJSBase::CJSDataBuffer oBuffer = oArray->getData();
 
@@ -122,23 +122,23 @@ JSSmart<CJSValue> CZipEmbed::decodeImage(JSSmart<CJSValue> typedArray, JSSmart<C
 		oFrame.put_IsRGBA(true);
 
 	if (!oFrame.Decode(oBuffer.Data, (int)oBuffer.Len))
-        return context->createUndefined();
+		return context->createUndefined();
 
-    JSSmart<CJSObject> oDecoded = context->createObject();
+	JSSmart<CJSObject> oDecoded = context->createObject();
 
 	size_t nFileSize = 4 * oFrame.get_Width() * oFrame.get_Height();
 	BYTE* pData = NSAllocator::Alloc(nFileSize);
 	memcpy(pData, oFrame.get_Data(), nFileSize);
-    oDecoded->set("data", context->createUint8Array(pData, (int)nFileSize, false));
-    oDecoded->set("width", context->createInt(oFrame.get_Width()));
-    oDecoded->set("height", context->createInt(oFrame.get_Height()));
-    oDecoded->set("stride", context->createInt(oFrame.get_Stride()));
+	oDecoded->set("data", context->createUint8Array(pData, (int)nFileSize, false));
+	oDecoded->set("width", context->createInt(oFrame.get_Width()));
+	oDecoded->set("height", context->createInt(oFrame.get_Height()));
+	oDecoded->set("stride", context->createInt(oFrame.get_Stride()));
 
 	return oDecoded->toValue();
 }
 JSSmart<CJSValue> CZipEmbed::encodeImageData(JSSmart<CJSValue> typedArray, JSSmart<CJSValue> w, JSSmart<CJSValue> h, JSSmart<CJSValue> stride, JSSmart<CJSValue> format, JSSmart<CJSValue> isRgba)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	JSSmart<CJSTypedArray> oArray = typedArray->toTypedArray();
 	NSJSBase::CJSDataBuffer oBuffer = oArray->getData();
 
@@ -167,15 +167,15 @@ JSSmart<CJSValue> CZipEmbed::encodeImageData(JSSmart<CJSValue> typedArray, JSSma
 		oFrame.FreeEncodedMemory(pBuffer);
 		oFrame.put_Data(NULL);
 
-        return context->createUint8Array(pData, nEncodedSize, false);
+		return context->createUint8Array(pData, nEncodedSize, false);
 	}
 
 	oFrame.put_Data(NULL);
-    return context->createUndefined();
+	return context->createUndefined();
 }
 JSSmart<CJSValue> CZipEmbed::encodeImage(JSSmart<CJSValue> typedArray, JSSmart<CJSValue> format)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	JSSmart<CJSTypedArray> oArray = typedArray->toTypedArray();
 	NSJSBase::CJSDataBuffer oBuffer = oArray->getData();
 	CImageFileFormatChecker oChecker;
@@ -203,7 +203,7 @@ JSSmart<CJSValue> CZipEmbed::encodeImage(JSSmart<CJSValue> typedArray, JSSmart<C
 				if (oBuffer.IsExternalize)
 					oBuffer.Free();
 
-                return context->createUint8Array(pData, sSvg.length(), false);
+				return context->createUint8Array(pData, sSvg.length(), false);
 		#endif
 			}
 			break;
@@ -225,7 +225,7 @@ JSSmart<CJSValue> CZipEmbed::encodeImage(JSSmart<CJSValue> typedArray, JSSmart<C
 				if (oBuffer.IsExternalize)
 					oBuffer.Free();
 
-                return context->createUint8Array(pData, nEncodedSize, false);
+				return context->createUint8Array(pData, nEncodedSize, false);
 			}
 			break;
 		}
@@ -234,16 +234,16 @@ JSSmart<CJSValue> CZipEmbed::encodeImage(JSSmart<CJSValue> typedArray, JSSmart<C
 	if (oBuffer.IsExternalize)
 		oBuffer.Free();
 
-    return context->createUndefined();
+	return context->createUndefined();
 }
 JSSmart<CJSValue> CZipEmbed::getImageType(JSSmart<CJSValue> typedArray)
 {
-    JSSmart<CJSContext> context = CJSContext::GetCurrent();
+	JSSmart<CJSContext> context = CJSContext::GetCurrent();
 	JSSmart<CJSTypedArray> oArray = typedArray->toTypedArray();
 	NSJSBase::CJSDataBuffer oBuffer = oArray->getData();
 	CImageFileFormatChecker oChecker;
 	bool bIsImageFile = oChecker.isImageFile(oBuffer.Data, (DWORD)oBuffer.Len);
 	if (oBuffer.IsExternalize)
 		oBuffer.Free();
-    return context->createInt(bIsImageFile ? oChecker.eFileType : 0);
+	return context->createInt(bIsImageFile ? oChecker.eFileType : 0);
 }

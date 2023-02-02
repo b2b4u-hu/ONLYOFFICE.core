@@ -187,7 +187,7 @@ namespace NSJSBase
 		v8::HandleScope m_scope;
 
 	public:
-        CJSLocalScopeV8(v8::Isolate* isolate) : m_scope(isolate)
+		CJSLocalScopeV8(v8::Isolate* isolate) : m_scope(isolate)
 		{
 		}
 		virtual ~CJSLocalScopeV8()
@@ -207,7 +207,7 @@ namespace NSJSBase
 
 	CJSTryCatch* CJSContext::GetExceptions()
 	{
-        return new CV8TryCatch(m_internal->m_isolate);
+		return new CV8TryCatch(m_internal->m_isolate);
 	}
 
 	void CJSContext::Initialize()
@@ -225,19 +225,19 @@ namespace NSJSBase
 
 	void CJSContext::CreateContext()
 	{
-        m_internal->m_context = v8::Context::New(m_internal->m_isolate, NULL, m_internal->m_global);
+		m_internal->m_context = v8::Context::New(m_internal->m_isolate, NULL, m_internal->m_global);
 	}
 
 	void CJSContext::CreateGlobalForContext()
 	{
-        m_internal->m_global = v8::ObjectTemplate::New(m_internal->m_isolate);
+		m_internal->m_global = v8::ObjectTemplate::New(m_internal->m_isolate);
 	}
 
 	CJSObject* CJSContext::GetGlobal()
 	{
-        CJSObjectV8* ret = new CJSObjectV8(m_internal->m_isolate);
-        ret->value = m_internal->m_context->Global();
-        return ret;
+		CJSObjectV8* ret = new CJSObjectV8(m_internal->m_isolate);
+		ret->value = m_internal->m_context->Global();
+		return ret;
 	}
 
 	CJSIsolateScope* CJSContext::CreateIsolateScope()
@@ -245,11 +245,11 @@ namespace NSJSBase
 		return new CJSIsolateScopeV8(m_internal->m_isolate);
 	}
 
-    CJSContextScope* CJSContext::CreateContextScope()
+	CJSContextScope* CJSContext::CreateContextScope()
 	{
 		CJSContextScope* pScope = new CJSContextScopeV8(m_internal->m_context);
 
-        JSSmart<CJSObject> global = GetGlobal();
+		JSSmart<CJSObject> global = GetGlobal();
 		global->set("window", global.GetPointer());
 
 		return pScope;
@@ -257,55 +257,55 @@ namespace NSJSBase
 
 	CJSLocalScope* CJSContext::CreateLocalScope()
 	{
-        return new CJSLocalScopeV8(m_internal->m_isolate);
+		return new CJSLocalScopeV8(m_internal->m_isolate);
 	}
 
 	CJSValue* CJSContext::createUndefined()
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
 		_value->doUndefined();
 		return _value;
 	}
 
 	CJSValue* CJSContext::createNull()
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
 		_value->doNull();
 		return _value;
 	}
 
 	CJSValue* CJSContext::createBool(const bool& value)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = v8::Boolean::New(m_internal->m_isolate, value);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = v8::Boolean::New(m_internal->m_isolate, value);
 		return _value;
 	}
 
 	CJSValue* CJSContext::createInt(const int& value)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = v8::Integer::New(m_internal->m_isolate, value);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = v8::Integer::New(m_internal->m_isolate, value);
 		return _value;
 	}
 
 	CJSValue* CJSContext::createUInt(const unsigned int& value)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = v8::Integer::NewFromUnsigned(m_internal->m_isolate, value);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = v8::Integer::NewFromUnsigned(m_internal->m_isolate, value);
 		return _value;
 	}
 
 	CJSValue* CJSContext::createDouble(const double& value)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = v8::Number::New(m_internal->m_isolate, value);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = v8::Number::New(m_internal->m_isolate, value);
 		return _value;
 	}
 
 	CJSValue* CJSContext::createString(const char* value, const int& length)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = CreateV8String(m_internal->m_isolate, value, length);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = CreateV8String(m_internal->m_isolate, value, length);
 		return _value;
 	}
 
@@ -317,8 +317,8 @@ namespace NSJSBase
 
 	CJSValue* CJSContext::createString(const std::string& value)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
-        _value->value = CreateV8String(m_internal->m_isolate, value.c_str(), (int)value.length());
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		_value->value = CreateV8String(m_internal->m_isolate, value.c_str(), (int)value.length());
 		return _value;
 	}
 
@@ -330,22 +330,22 @@ namespace NSJSBase
 
 	CJSObject* CJSContext::createObject()
 	{
-        CJSObjectV8* _value = new CJSObjectV8(m_internal->m_isolate);
-        _value->value = v8::Object::New(m_internal->m_isolate);
+		CJSObjectV8* _value = new CJSObjectV8(m_internal->m_isolate);
+		_value->value = v8::Object::New(m_internal->m_isolate);
 		return _value;
 	}
 
 	CJSArray* CJSContext::createArray(const int& count)
 	{
-        CJSArrayV8* _value = new CJSArrayV8(m_internal->m_isolate);
-        _value->value = v8::Array::New(m_internal->m_isolate, count);
+		CJSArrayV8* _value = new CJSArrayV8(m_internal->m_isolate);
+		_value->value = v8::Array::New(m_internal->m_isolate, count);
 		_value->m_count = count;
 		return _value;
 	}
 
 	CJSTypedArray* CJSContext::createUint8Array(BYTE* data, int count, const bool& isExternalize)
 	{
-        CJSTypedArrayV8* _value = new CJSTypedArrayV8(m_internal->m_isolate, data, count, isExternalize);
+		CJSTypedArrayV8* _value = new CJSTypedArrayV8(m_internal->m_isolate, data, count, isExternalize);
 		return _value;
 	}
 
@@ -356,7 +356,7 @@ namespace NSJSBase
 #endif
 		LOGGER_START
 
-        v8::Local<v8::String> _source = CreateV8String(m_internal->m_isolate, script.c_str());
+		v8::Local<v8::String> _source = CreateV8String(m_internal->m_isolate, script.c_str());
 		v8::Local<v8::Script> _script;
 		if(!scriptPath.empty())
 		{
@@ -366,24 +366,24 @@ namespace NSJSBase
 		}
 		else
 		{
-            v8::MaybeLocal<v8::Script> _scriptRetValue = v8::Script::Compile(m_internal->m_context, _source);
+			v8::MaybeLocal<v8::Script> _scriptRetValue = v8::Script::Compile(m_internal->m_context, _source);
 			if (!_scriptRetValue.IsEmpty())
 				_script = _scriptRetValue.ToLocalChecked();
 		}
 
 		LOGGER_LAP("compile")
 
-        CJSValueV8* _return = new CJSValueV8(m_internal->m_isolate);
+		CJSValueV8* _return = new CJSValueV8(m_internal->m_isolate);
 
 		v8::MaybeLocal<v8::Value> retValue;
 		if (exception.is_init())
 		{
 			if (!exception->Check())
-                retValue = _script->Run(m_internal->m_context);
+				retValue = _script->Run(m_internal->m_context);
 		}
 		else
 		{
-            retValue = _script->Run(m_internal->m_context);
+			retValue = _script->Run(m_internal->m_context);
 		}
 
 		if (!retValue.IsEmpty())
@@ -396,15 +396,15 @@ namespace NSJSBase
 
 	CJSValue* CJSContext::JSON_Parse(const char *sTmp)
 	{
-        CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
+		CJSValueV8* _value = new CJSValueV8(m_internal->m_isolate);
 #ifndef V8_OS_XP
-        v8::MaybeLocal<v8::Value> retValue = v8::JSON::Parse(m_internal->m_context, CreateV8String(m_internal->m_isolate, sTmp));
+		v8::MaybeLocal<v8::Value> retValue = v8::JSON::Parse(m_internal->m_context, CreateV8String(m_internal->m_isolate, sTmp));
 		if (!retValue.IsEmpty())
 			_value->value = retValue.ToLocalChecked();
 		else
 			_value->doUndefined();
 #else
-        _value->value = v8::JSON::Parse(CreateV8String(m_internal->m_isolate, sTmp));
+		_value->value = v8::JSON::Parse(CreateV8String(m_internal->m_isolate, sTmp));
 #endif
 		return _value;
 	}
@@ -414,13 +414,14 @@ namespace NSJSBase
 		// none
 	}
 
-    // Creates copy of CJSContext for entered isolate
-    JSSmart<CJSContext> CJSContext::GetCurrent() {
-        CJSContext* ret = new CJSContext();
-        ret->m_internal->m_isolate = CV8Worker::GetCurrent();
-        ret->m_internal->m_context = CV8Worker::GetCurrentContext();
-        return ret;
-    }
+	// Creates copy of CJSContext for entered isolate
+	JSSmart<CJSContext> CJSContext::GetCurrent()
+	{
+		CJSContext* ret = new CJSContext();
+		ret->m_internal->m_isolate = CV8Worker::GetCurrent();
+		ret->m_internal->m_context = CV8Worker::GetCurrentContext();
+		return ret;
+	}
 
 	void CJSContext::ExternalInitialize(const std::wstring& sDirectory)
 	{
