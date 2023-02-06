@@ -41,8 +41,11 @@
 #include "../../../OOXML/PPTXFormat/Logic/Shape.h"
 #include "../../../OOXML/PPTXFormat/Logic/SpTree.h"
 
-#include "../../Common/ODraw/CustomShape.h"
-#include "../../Common/ODraw/CustomShapeConvert.h"
+//#include "../../Common/ODraw/CustomShape.h" todo remove
+//#include "../../Common/ODraw/CustomShapeConvert.h"
+#include "../../Common/Vml/BaseShape.h"
+#include "../../Common/Vml/PPTShape/PptShape.h"
+#include "../../Common/Vml/PPTShape/Ppt2PptxShapeConverter.h"
 
 
 namespace oox {
@@ -1765,68 +1768,36 @@ bool xlsx_drawing_context::is_lined_shape(_drawing_state_ptr & drawing_state)
 
 std::wstring xlsx_drawing_context::convert_custom_shape(_drawing_state_ptr & drawing_state)
 {
-	NSCustomShapesConvert::CCustomShape * shape = NSCustomShapesConvert::CCustomShape::CreateByType(drawing_state->shape_id);
-	if (shape == NULL) return L"";
+//	NSCustomShapesConvert::CCustomShape * shape = ODraw::BaseShape::CreateByType(drawing_state->shape_id);
+    auto pbaseshape = ODRAW::CBaseShape::CreateByType(ODRAW::NSBaseShape::ppt, drawing_state->shape_id);
+    auto shape = boost::dynamic_pointer_cast<CPPTShape>(pbaseshape);
+
+    if (shape.get() == nullptr)
+        return L"";
 
 	std::wstring strResult;
 	std::wstringstream strm;
 
-	shape->m_oCustomVML.SetAdjusts(&shape->m_arAdjustments);
-	
-	for (size_t i = 0 ; i < drawing_state->custom_verticles.size(); i++)
-	{
-		 Aggplus::POINT p;
-		
-		 p.x = drawing_state->custom_verticles[i].x;
-		 p.y = drawing_state->custom_verticles[i].y;
-		
-		 shape->m_oCustomVML.m_arVertices.push_back(p);
-	}
-	
-	for (size_t i = 0 ; i < drawing_state->custom_guides.size(); i++)
-	{//todooo объеденить/срастить !!
-		NSCustomShapesConvert::CGuide guid;
-		
-		guid.m_eType		= drawing_state->custom_guides[i].m_eType;
-		guid.m_param_type1	= drawing_state->custom_guides[i].m_param_type1;
-		guid.m_param_type2	= drawing_state->custom_guides[i].m_param_type2;
-		guid.m_param_type3	= drawing_state->custom_guides[i].m_param_type3;
-		guid.m_param_value1 = drawing_state->custom_guides[i].m_param_value1;
-		guid.m_param_value2 = drawing_state->custom_guides[i].m_param_value2;
-		guid.m_param_value3 = drawing_state->custom_guides[i].m_param_value3;
-		
-		shape->m_oCustomVML.addGuide(guid);
-	}	
-	
-	for (size_t i = 0 ; i < drawing_state->custom_segments.size(); i++)
-	{
-		if (0 == drawing_state->custom_segments[i].m_nCount)
-		{
-			if ((NSCustomShapesConvert::rtEnd		!= drawing_state->custom_segments[i].m_eRuler) &&
-				(NSCustomShapesConvert::rtNoFill	!= drawing_state->custom_segments[i].m_eRuler) &&
-				(NSCustomShapesConvert::rtNoStroke	!= drawing_state->custom_segments[i].m_eRuler) &&
-				(NSCustomShapesConvert::rtClose		!= drawing_state->custom_segments[i].m_eRuler))
-			{
-				continue;
-			}
-		}
-		shape->m_oCustomVML.addSegment(drawing_state->custom_segments[i].m_eRuler , drawing_state->custom_segments[i].m_nCount);
-	}	
-	//for (int i = 0; i < drawing_state->custom_adjustHandles.size(); i++)
-	//{//todooo - ранее этого не было ?????
-	//	shape->m_oCustomVML.addHandle(i, *drawing_state->custom_adjustHandles[i]);
-	//}
-	for (size_t i = 0; i < drawing_state->custom_adjustValues.size(); i++)
-	{
-		if (drawing_state->custom_adjustValues[i])
-		{
-			shape->m_oCustomVML.addAdjust(i, *drawing_state->custom_adjustValues[i]);
-		}
-	}
-	if (drawing_state->custom_path >= 0)
-		shape->m_oCustomVML.SetPath((NSCustomShapesConvert::RulesType)drawing_state->custom_path);
+    shape->m_oCustomVML.SetAdjusts(&shape->m_arAdjustments);
+    shape->m_oCustomVML.LoadVertices(drawing_state->custom_verticles);
+    shape->m_oCustomVML.LoadGuides(drawing_state->custom_guides);
+    shape->m_oCustomVML.LoadSegments(drawing_state->custom_segments);
 
-	shape->m_oCustomVML.ToCustomShape(shape, shape->m_oManager);
+    //for (int i = 0; i < drawing_state->custom_adjustHandles.size(); i++)
+    //{//todooo - ранее этого не было ?????
+    //	shape->m_oCustomVML.addHandle(i, *drawing_state->custom_adjustHandles[i]);
+    //}
+    for (size_t i = 0; i < drawing_state->custom_adjustValues.size(); i++)
+    {
+        if (drawing_state->custom_adjustValues[i])
+        {
+            shape->m_oCustomVML.AddAdjust(i, *drawing_state->custom_adjustValues[i]);
+        }
+    }
+    if (drawing_state->custom_path >= 0)
+        shape->m_oCustomVML.SetPath((ODRAW::RulesType)drawing_state->custom_path);
+
+    shape->m_oCustomVML.ToCustomShape(pbaseshape.get(), shape->m_oManager);
 	shape->ReCalculate();
 //-------------------------------------------------------------------------------------
 	if (drawing_state->custom_rect.cx > 0 && drawing_state->custom_rect.cy > 0)
@@ -1834,12 +1805,12 @@ std::wstring xlsx_drawing_context::convert_custom_shape(_drawing_state_ptr & dra
 		shape->m_oPath.SetCoordsize(drawing_state->custom_rect.cx, drawing_state->custom_rect.cy);
 	}
 
-	NSCustomShapesConvert::CFormParam pParamCoef;
-	pParamCoef.m_eType	= NSCustomShapesConvert::ptValue;
+    NSGuidesVML::CFormParam pParamCoef;
+    pParamCoef.m_eType	= NSGuidesVML::ptValue;
 	pParamCoef.m_lParam = 65536;
 	pParamCoef.m_lCoef	= 65536;
 	
-	NSCustomShapesConvert::CFormulaConverter pFormulaConverter;
+    NSGuidesVML::CFormulaConverter pFormulaConverter;
 
 	//coeff
 	pFormulaConverter.ConvertCoef(pParamCoef);
@@ -1848,7 +1819,7 @@ std::wstring xlsx_drawing_context::convert_custom_shape(_drawing_state_ptr & dra
 	int nGuidCount = shape->m_oManager.m_arFormulas.size();
 	if (0 != nGuidCount)
 	{
-		pFormulaConverter.ConvertFormula(shape->m_oManager.m_arFormulas);
+        pFormulaConverter.ConvertFormula(shape->m_oManager.m_arFormulas);
 	}				
 
 	//path------------------------------------------
@@ -1902,9 +1873,7 @@ std::wstring xlsx_drawing_context::convert_custom_shape(_drawing_state_ptr & dra
 			}	
 		}
 		strResult = strm.str();
-	}
-
-	delete shape;
+    }
 
 	return strResult;
 }

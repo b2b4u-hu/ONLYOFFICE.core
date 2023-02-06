@@ -42,8 +42,14 @@ namespace NSCustomVML
 		CSegment::CSegment(const CSegment& oSrc)
 		{
 			m_eRuler = oSrc.m_eRuler;
-			m_nCount = oSrc.m_nCount;
-		}
+                        m_nCount = oSrc.m_nCount;
+                }
+
+                CSegment::CSegment(const ODRAW::MSOPATHINFO &oSrc) :
+                    m_eRuler(oSrc.m_eRuler),
+                    m_nCount(oSrc.m_nCount)
+                {
+                }
 		CSegment& CSegment::operator=(const CSegment& oSrc)
 		{
 			m_eRuler = oSrc.m_eRuler;
@@ -331,8 +337,21 @@ namespace NSCustomVML
         }
 		CGuide::CGuide(const CGuide& oSrc)
         {
-            *this = oSrc;
-        }
+                    *this = oSrc;
+                }
+
+                CGuide::CGuide(const ODRAW::MSOSG &oSrc) :
+                    m_eType(oSrc.m_eTyp),
+                    m_param_type1(oSrc.m_param_type1),
+                    m_param_type2(oSrc.m_param_type2),
+                    m_param_type3(oSrc.m_param_type3),
+                    m_param_value1(oSrc.m_param_value1),
+                    m_param_value2(oSrc.m_param_value2),
+                    m_param_value3(oSrc.m_param_value3),
+                    m_lShapeWidth(ShapeSizeVML),
+                    m_lShapeHeight(ShapeSizeVML)
+                {}
+
 		CGuide& CGuide::operator=(const CGuide& oSrc)
         {
             m_eType			= oSrc.m_eType;
@@ -514,7 +533,95 @@ namespace NSCustomVML
 
                 m_arVertices.push_back(oPoint);
             }
-        }
+                }
+
+                void CCustomVML::LoadVertices(const std::vector<ODRAW::MSOPOINT> &values)
+                {
+                    if (!values.empty())
+                        m_bIsVerticesPresent = true;
+
+                    m_arVertices.clear();
+
+                    for (size_t ind = 0; ind < values.size(); ++ind)
+                    {
+                        Aggplus::POINT oPoint;
+
+                        oPoint.x = values[ind].x;
+                        oPoint.y = values[ind].y;
+
+                        LONG lMinF = (LONG)0x80000000;
+                        LONG lMaxF = (LONG)0x8000007F;
+                        if (lMinF <= oPoint.x)
+                        {
+                            int nGuideIndex = (_UINT32)oPoint.x - 0x80000000;
+
+                            bool b = false;
+                        }
+                        if (lMinF <= oPoint.y)
+                        {
+                            int nGuideIndex = (_UINT32)oPoint.y - 0x80000000;
+
+                            bool b = false;
+                        }
+
+                        m_arVertices.push_back(oPoint);
+                    }
+                }
+
+                void CCustomVML::AddSegment(int rawSegment)
+                {
+                    CSegment segment;
+                    int count = segment.Read(rawSegment);
+                    AddSegment(segment);
+                }
+
+                void CCustomVML::AddSegment(const CSegment &segment)
+                {
+                    if (0 == oInfo.m_nCount &&
+                        ODRAW::rtEnd        != segment.m_eRuler &&
+                        ODRAW::rtNoFill     != segment.m_eRuler &&
+                        ODRAW::rtNoStroke   != segment.m_eRuler &&
+                        ODRAW::rtClose      != segment.m_eRuler)
+                        return;
+
+                    for (int i = 0 ; i < count; i++)
+                        m_arSegments.push_back(segment);
+                }
+
+                void CCustomVML::LoadSegments(const std::vector<ODRAW::MSOPATHINFO> &segments)
+                {
+                    m_arSegments.clear();
+
+                    if (!segments.empty())
+                        m_bIsPathPresent = true;
+
+                    for (const auto& segment : segments)
+                        AddSegment(CSegment(segment));
+                }
+
+                void CCustomVML::LoadGuides(const std::vector<ODRAW::MSOSG> &guides)
+                {
+                    m_arGuides.clear();
+                    for (const auto& guid : guides)
+                        m_arGuides.emplace_back(guid);
+                }
+
+                void CCustomVML::AddAdjust(LONG lIndex, LONG lValue)
+                {
+                    if (NULL == m_pAdjustValues)
+                            return;
+
+                    int lCount = m_pAdjustValues->size();
+
+                    while (lCount <= lIndex)
+                    {
+                            m_pAdjustValues->push_back(0);
+                            lCount = m_pAdjustValues->size();
+                    }
+
+                    (*m_pAdjustValues)[lIndex] = lValue;
+                }
+
 		void CCustomVML::LoadConnectionSitesDir(CProperty* pProperty)
         {
             ODRAW::CBinaryReader oReader(pProperty->m_pOptions, pProperty->m_lValue);
@@ -632,23 +739,8 @@ namespace NSCustomVML
                 m_bIsPathPresent = true;
 
             for (size_t ind = 0; ind <  values.size(); ++ind)
-            {
-                CSegment oInfo;
-                int count = oInfo.Read(values[ind]);
+                AddSegments(values[ind]);
 
-                if (0 == oInfo.m_nCount)
-                {
-                    if ((ODRAW::rtEnd		!= oInfo.m_eRuler) &&
-                            (ODRAW::rtNoFill	!= oInfo.m_eRuler) &&
-                            (ODRAW::rtNoStroke != oInfo.m_eRuler) &&
-                            (ODRAW::rtClose	!= oInfo.m_eRuler))
-                    {
-                        continue;
-                    }
-                }
-                for (int i = 0 ; i < count; i++)
-                    m_arSegments.push_back(oInfo);
-            }
         }
 		void CCustomVML::LoadSegments(CProperty* pProperty)
         {

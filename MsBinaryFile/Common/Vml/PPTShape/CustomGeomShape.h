@@ -36,6 +36,7 @@
 //#include "../../../PptFile/Drawing/Attributes.h"
 #include "PptFormula.h"
 #include "../GraphicsPath.h"
+#include "../../../XlsFile/Format/Logic/Biff_structures/ODRAW/OfficeArtFOPTE.h"
 
 namespace NSCustomVML
 {
@@ -48,6 +49,7 @@ namespace NSCustomVML
     public:
 		CSegment(ODRAW::RulesType eType = ODRAW::rtMoveTo, WORD nCount = 2);
 		CSegment(const CSegment& oSrc);
+                CSegment(const ODRAW::MSOPATHINFO& oSrc);
 		CSegment& operator=(const CSegment& oSrc);
 		~CSegment();
 
@@ -74,6 +76,7 @@ namespace NSCustomVML
 
 		CGuide();
 		CGuide(const CGuide& oSrc);
+                CGuide(const ODRAW::MSOSG& oSrc);
 		CGuide& operator=(const CGuide& oSrc);
 
 		void SetToFormula(NSGuidesVML::CFormula& oFormula);
@@ -114,17 +117,23 @@ namespace NSCustomVML
 		void SetPath(ODRAW::RulesType ePath);
 
 		void LoadVertices(std::vector<std::pair<int,int>> values);
+                void LoadVertices(const std::vector<ODRAW::MSOPOINT>& values);
 		void LoadConnectionSitesDir(CProperty* pProperty);
 		void LoadConnectionSites(CProperty* pProperty);
 		void LoadVertices(CProperty* pProperty);
 		void LoadAHs(CProperty* pProperty);
+                void AddSegment(int rawSegment);
+                void AddSegment(const CSegment& segment);
 		void LoadSegments(std::vector<int> values);
-		void LoadSegments(CProperty* pProperty);
-		void LoadGuides(CProperty* pProperty);
+                void LoadSegments(CProperty* pProperty);
+                void LoadSegments(const std::vector<ODRAW::MSOPATHINFO>& segments);
+                void LoadGuides(CProperty* pProperty);
+                void LoadGuides(const std::vector<ODRAW::MSOSG>& guides);
 		void LoadInscribe(CProperty* pProperty);
 		void LoadAdjusts(LONG lIndex, LONG lValue);
 
 		void SetAdjusts(std::vector<LONG>* pList);
+                void AddAdjust(LONG lIndex, LONG lValue);
 		void ToCustomShape(ODRAW::CBaseShape* pShape, NSGuidesVML::CFormulasManager& oManager);
 	};
 }

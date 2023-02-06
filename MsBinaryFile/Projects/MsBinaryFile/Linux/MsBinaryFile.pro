@@ -37,8 +37,7 @@ INCLUDEPATH += ../../../XlsFile/Format
 INCLUDEPATH += ../../../Common
 INCLUDEPATH += ../../../../OOXML/XlsbFormat
 
-core_release {
-SOURCES += \
+core_release {SOURCES += \
 	../../XlsFormatLib/linux/xls_format_logic.cpp \
 	../../DocFormatLib/linux/doc_converter.cpp \
 	../../PPTFormatLib/linux/ppt_format_logic.cpp \
@@ -873,7 +872,6 @@ SOURCES +=  \
 	../../../PptFile/Reader/SlidePersist.cpp \
 	../../../PptFile/PPTXWriter/Converter.cpp \
 	../../../PptFile/PPTXWriter/ShapeWriter.cpp \
-	../../../PptFile/PPTXWriter/Animation.cpp \
 	../../../PptFile/PPTXWriter/TableWriter.cpp \
 	../../../PptFile/PPTXWriter/TxBodyConverter.cpp \
 	../../../PptFile/Records/Drawing/ArtBlip.cpp \
@@ -900,8 +898,7 @@ SOURCES +=  \
 	../../../XlsFile/Format/Logging/Log.cpp \
 	../../../XlsFile/Format/Logging/Logger.cpp \
 	../../../Common/ODraw/FormulaShape.cpp \
-	../../../Common/ODraw/CustomShape.cpp \
-	../../../Common/ODraw/BaseShape_1.cpp \
+        ../../../Common/ODraw/CustomShape.cpp \
 	../../../XlsFile/Converter/ConvertXls2Xlsx.cpp \
 	../../../XlsFile/Converter/external_items.cpp \
 	../../../XlsFile/Converter/mediaitems_utils.cpp \
@@ -2084,7 +2081,6 @@ HEADERS +=  \
 	../../../PptFile/Enums/RecordType.h \
 	../../../PptFile/Enums/_includer.h \
 	../../../PptFile/Enums/enums.h \
-	../../../PptFile/PPTXWriter/Animation.h \
 	../../../PptFile/PPTXWriter/BulletsConverter.h \
 	../../../PptFile/PPTXWriter/TableWriter.h \
 	../../../PptFile/PPTXWriter/TxBodyConverter.h \
