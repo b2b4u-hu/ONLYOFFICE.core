@@ -284,32 +284,32 @@ public:
 	CPPTXShape();
 	~CPPTXShape();
 
-	virtual bool LoadFromXML(const std::wstring& xml);
-	virtual bool LoadFromXML(XmlUtils::CXmlNode& root);
+    virtual bool LoadFromXML(const std::wstring& xml) override;
+    virtual bool LoadFromXML(XmlUtils::CXmlNode& root) override;
 
-	virtual bool LoadAdjustValuesList(const std::wstring& xml);
-	virtual bool LoadGuidesList(const std::wstring& xml);
+    virtual bool LoadAdjustValuesList(const std::wstring& xml) override;
+    virtual bool LoadGuidesList(const std::wstring& xml) override;
 
-	virtual bool LoadAdjustHandlesList(const std::wstring& xml);
-	virtual bool LoadConnectorsList(const std::wstring& xml);
+    virtual bool LoadAdjustHandlesList(const std::wstring& xml) override;
+    virtual bool LoadConnectorsList(const std::wstring& xml) override;
 
-	virtual bool LoadTextRect(const std::wstring& xml);
-	virtual bool LoadPathList(const std::wstring& xml);
+    virtual bool LoadTextRect(const std::wstring& xml) override;
+    virtual bool LoadPathList(const std::wstring& xml) override;
 
-	virtual bool SetAdjustment(long index, long value);
+    virtual bool SetAdjustment(long index, long value) override;
 
-	virtual std::wstring ToXML(CGeomShapeInfo& GeomInfo, double StartTime, double EndTime, CBrush& Brush, CPen& Pen);
-	virtual void ToRenderer(IRenderer* pRenderer, CGeomShapeInfo& pGeomInfo, double dStartTime, double dEndTime, CPen& pPen, CBrush& pFore);
+    virtual std::wstring ToXML(CGeomShapeInfo& GeomInfo, double StartTime, double EndTime, CBrush& Brush, CPen& Pen) override;
+    virtual void ToRenderer(IRenderer* pRenderer, CGeomShapeInfo& pGeomInfo, double dStartTime, double dEndTime, CPen& pPen, CBrush& pFore) override;
 
-	virtual void ReCalculate();
+    virtual void ReCalculate() override;
     static CBaseShapePtr CreateByType(OOXMLShapes::ShapeType type);    
-	virtual const ClassType GetClassType() const;
+    virtual const ClassType GetClassType() const override;
 
-	virtual bool SetProperties(CBaseShape* Shape);
-	virtual bool SetToDublicate(CBaseShape* Shape);
+    virtual bool SetProperties(CBaseShape* Shape) override;
+    virtual bool SetToDublicate(CBaseShape* Shape) override;
 
-	bool SetShapeType(OOXMLShapes::ShapeType type);
+    bool SetShapeType(OOXMLShapes::ShapeType type);
 
-	virtual void SetWidthHeightLogic(const double& dWidth, const double& dHeight);
-	virtual void GetWidthHeightLogic(double& dWidth, double& dHeight);
+    virtual void SetWidthHeightLogic(const double& dWidth, const double& dHeight) override;
+    virtual void GetWidthHeightLogic(double& dWidth, double& dHeight) override;
 };

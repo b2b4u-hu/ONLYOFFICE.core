@@ -40,10 +40,12 @@
 // это класс, использующийся для передачи свойств объектов,
 // например - указатель на картинку... (по PID'у)
 
+namespace ODRAW
+{
 class CProperty
 {
 public:
-    ODRAW::ePropertyId				m_ePID;
+    ePropertyId     				m_ePID;
     bool							m_bIsBlip;
     bool							m_bComplex;
     _UINT32							m_lValue;
@@ -73,3 +75,4 @@ public:
 	void FromStream(POLE::Stream* pStream, long lCount);
 	size_t GetLen();
 };
+}

@@ -32,10 +32,8 @@
 #pragma once
 #include "GraphicsPath.h"
 
-#include "PPTXShape/PptxFormula.h"
-#include "PPTShape/PptFormula.h"
+#include "PptFormula.h"
 
-using namespace NSGuidesVML;
 
 namespace ODRAW
 {

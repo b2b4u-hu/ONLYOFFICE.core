@@ -3,7 +3,7 @@
 
 using namespace ODRAW;
 
-ShapePtr CreateByType(ShapeType type)
+ShapePtr CreateByType(eShadeType type)
 {
     return {};
 }

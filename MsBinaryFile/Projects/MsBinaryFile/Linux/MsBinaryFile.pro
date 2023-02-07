@@ -883,6 +883,11 @@ SOURCES +=  \
 }
 
 SOURCES +=  \
+    ../../../Common/ODraw2/BinaryReader.cpp \
+    ../../../Common/ODraw2/CustomGeomShape.cpp \
+    ../../../Common/ODraw2/ElementSettings.cpp \
+    ../../../Common/ODraw2/GraphicsPath.cpp \
+    ../../../Common/ODraw2/PptFormula.cpp \
     ../../../Common/ODraw2/baseshape.cpp \
     ../../../Common/ODraw2/shape.cpp \
     ../../../Common/ODraw2/shapes/OOXMLShapes/CAccentBorderCallout1.cpp \
@@ -1176,8 +1181,17 @@ SOURCES +=  \
 	../../../PptFile/PPTXWriter/BulletsConverter.cpp \
 
 HEADERS +=  \
+    ../../../Common/ODraw2/BinaryReader.h \
+    ../../../Common/ODraw2/Common.h \
+    ../../../Common/ODraw2/CustomGeomShape.h \
+    ../../../Common/ODraw2/ElementSettings.h \
+    ../../../Common/ODraw2/Enums.h \
+    ../../../Common/ODraw2/GraphicsPath.h \
+    ../../../Common/ODraw2/Path.h \
+    ../../../Common/ODraw2/PptFormula.h \
     ../../../Common/ODraw2/baseshape.h \
     ../../../Common/ODraw2/handle.h \
+    ../../../Common/ODraw2/option.h \
     ../../../Common/ODraw2/shape.h \
     ../../../Common/ODraw2/shapes/OOXMLShapes/CAccentBorderCallout1.h \
     ../../../Common/ODraw2/shapes/OOXMLShapes/CAccentBorderCallout2.h \

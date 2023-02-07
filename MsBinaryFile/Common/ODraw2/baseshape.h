@@ -31,11 +31,13 @@
  */
 #pragma once
 
+#include "CustomGeomShape.h"
 #include "shape.h"
+#include "option.h"
 #include "handle.h"
 #include <vector>
-#include "../Vml/Path.h" // todo replace
-#include "../../../OOXML/Common/SimpleTypes_Base.h"
+#include "Path.h"
+#include "../../../OOXML/DocxFormat/Logic/VmlOfficeDrawing.h"
 
 
 namespace ODRAW
@@ -44,28 +46,34 @@ class BaseShape : public Shape
 {
 public:
     BaseShape();
+    virtual bool LoadFromXML(const std::wstring& xml)               override;
+    virtual bool LoadFromXML(XmlUtils::CXmlNode& xmlNode)           override;
+    virtual bool LoadAdjustValuesList(const std::wstring& xml)		override;
+    virtual bool LoadGuidesList(const std::wstring& xml)            override;
+    virtual bool LoadAdjustHandlesList(const std::wstring& xml)		override;
+    virtual bool LoadConnectorsList(const std::wstring& xml)		override;
+    virtual bool LoadTextRect(const std::wstring& xml)				override;
+    virtual bool LoadPathList(const std::wstring& xml)				override;
+    virtual bool SetAdjustment(long index, long value)				override;
+    virtual void ReCalculate()										override;
 
 private:
-    std::vector<long>                   arAbsMaxAdjustments;
-    std::vector<long>                   arAbsAdjustments;
-    std::vector<double>                 arGuides;
+    eShadeType                      m_eType;
+    NSGuidesVML::CFormulasManager	m_oManager;
+    NSCustomVML::CCustomVML			m_oCustomVML;
 
-    std::vector<SimpleTypes::CPoint>	arConnectors;
+    _3dOptions          			m_3dOptions;
+    _textPath           			m_textPath;
 
-    std::vector<LONG>					arConnectorAngles;
+    std::wstring m_strPathLimoX;
+    std::wstring m_strPathLimoY;
 
-    std::vector<Aggplus::RECT>			arTextRects;
+    std::vector<std::wstring> m_arStringTextRects;
+    bool m_bIsShapeType;
 
-    std::vector<Handle>                 arHandles;
+    bool m_bIsFilled;
+    bool m_bIsStroked;
 
-    std::wstring						strTransformXml;
-
-    std::wstring						strPath;
-    std::wstring						strRect;
-
-    LONG								LimoX;
-    LONG								LimoY;
-
-    CPath								Path;
+    nullable<OOX::VmlOffice::CSignatureLine> m_oSignatureLine;
 };
 }

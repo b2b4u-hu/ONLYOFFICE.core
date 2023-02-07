@@ -31,6 +31,8 @@
  */
 
 #include "CustomGeomShape.h"
+#include "Path.h"
+
 
 namespace NSCustomVML
 {   
@@ -386,7 +388,7 @@ namespace NSCustomVML
             m_param_value2 = oReader.ReadWORD();
             m_param_value3 = oReader.ReadWORD();
         }    
-		void CGuide::SetParam(BYTE type, WORD param, ParamType& param_type, LONG& param_value)
+        void CGuide::SetParam(BYTE type, WORD param, NSGuidesVML::ParamType &param_type, LONG& param_value)
         {
             if (0 == type)
             {
@@ -747,7 +749,7 @@ namespace NSCustomVML
         {
             m_pAdjustValues = pList;
         }
-		void CCustomVML::ToCustomShape(ODRAW::CBaseShape* pShape, NSGuidesVML::CFormulasManager& oManager)
+        void CCustomVML::ToCustomShape(ODRAW::Shape* pShape, NSGuidesVML::CFormulasManager& oManager)
         {
             if ((NULL == pShape) || (!IsCustom()))
                 return;

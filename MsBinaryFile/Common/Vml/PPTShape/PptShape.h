@@ -148,29 +148,29 @@ public:
 	CPPTShape();
 	virtual ~CPPTShape();
 
-	virtual bool LoadFromXML(const std::wstring& xml);
-	virtual bool LoadFromXML(XmlUtils::CXmlNode& oNodePict);
-	virtual bool LoadFromXMLShapeType(XmlUtils::CXmlNode& oNodeShapeType);
-	virtual bool LoadAdjustValuesList(const std::wstring& xml);
+    virtual bool LoadFromXML(const std::wstring& xml)override;
+    virtual bool LoadFromXML(XmlUtils::CXmlNode& oNodePict)override;
+    virtual bool LoadFromXMLShapeType(XmlUtils::CXmlNode& oNodeShapeType);  // ppt
+    virtual bool LoadAdjustValuesList(const std::wstring& xml)override;
 
-	virtual bool LoadGuidesList(const std::wstring& xml);
-	virtual void AddGuide(const std::wstring& strGuide);
-	virtual bool LoadAdjustHandlesList(const std::wstring& xml);
-	void LoadAHList(XmlUtils::CXmlNode& oNode);
+    virtual bool LoadGuidesList(const std::wstring& xml)override;
+    virtual void AddGuide(const std::wstring& strGuide)override;
+    virtual bool LoadAdjustHandlesList(const std::wstring& xml)override;
+    void LoadAHList(XmlUtils::CXmlNode& oNode); // ppt
 
-	virtual bool LoadConnectorsList(const std::wstring& xml);
-	virtual bool LoadTextRect(const std::wstring& xml);
-	virtual bool LoadPathList(const std::wstring& xml);
-	virtual bool SetAdjustment(long index, long value);
+    virtual bool LoadConnectorsList(const std::wstring& xml)override;
+    virtual bool LoadTextRect(const std::wstring& xml)override;
+    virtual bool LoadPathList(const std::wstring& xml)override;
+    virtual bool SetAdjustment(long index, long value)override;
 
-	virtual std::wstring ToXML(CGeomShapeInfo& GeomInfo, double StartTime, double EndTime, CBrush& Brush, CPen& Pen);
-	virtual void ReCalculate();
+    virtual std::wstring ToXML(CGeomShapeInfo& GeomInfo, double StartTime, double EndTime, CBrush& Brush, CPen& Pen)override;
+    virtual void ReCalculate()override;
 
 	static CBaseShapePtr CreateByType(PPTShapes::ShapeType type);
-	virtual const ClassType GetClassType()const;
+    virtual const ClassType GetClassType()const override;
 
-	virtual bool SetProperties(CBaseShape* Shape);
-	virtual bool SetToDublicate(CBaseShape* Shape);
+    virtual bool SetProperties(CBaseShape* Shape)override;
+    virtual bool SetToDublicate(CBaseShape* Shape)override;
 
 	bool SetShapeType(PPTShapes::ShapeType type);
 	void CalcTextRectOffsets(double& dPercentLeft, double& dPercentTop, double& dPercentRight, double& dPercentBottom, LONG nIndex = 0);

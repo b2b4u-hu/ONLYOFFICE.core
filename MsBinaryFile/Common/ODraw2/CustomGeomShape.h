@@ -32,17 +32,17 @@
 #pragma once
 #include "BinaryReader.h"
 #include "ElementSettings.h"
-#include "../BaseShape.h"
-//#include "../../../PptFile/Drawing/Attributes.h"
 #include "PptFormula.h"
-#include "../GraphicsPath.h"
+#include "GraphicsPath.h"
+#include "shape.h"
+
 
 namespace NSCustomVML
 {
     class CSegment
     {
     public:
-		ODRAW::RulesType m_eRuler;
+        ODRAW::RulesType m_eRuler;
         WORD m_nCount;
 
     public:
@@ -82,7 +82,7 @@ namespace NSCustomVML
 		void Read(ODRAW::CBinaryReader& oReader);
 
     private:
-		void SetParam(BYTE type, WORD param, ParamType& param_type, LONG& param_value);
+        void SetParam(BYTE type, WORD param, NSGuidesVML::ParamType& param_type, LONG& param_value);
     };
 
     class CCustomVML
@@ -114,17 +114,17 @@ namespace NSCustomVML
 		void SetPath(ODRAW::RulesType ePath);
 
 		void LoadVertices(std::vector<std::pair<int,int>> values);
-		void LoadConnectionSitesDir(CProperty* pProperty);
-		void LoadConnectionSites(CProperty* pProperty);
-		void LoadVertices(CProperty* pProperty);
-		void LoadAHs(CProperty* pProperty);
+        void LoadConnectionSitesDir(ODRAW::CProperty* pProperty);
+        void LoadConnectionSites(ODRAW::CProperty* pProperty);
+        void LoadVertices(ODRAW::CProperty* pProperty);
+        void LoadAHs(ODRAW::CProperty* pProperty);
 		void LoadSegments(std::vector<int> values);
-		void LoadSegments(CProperty* pProperty);
-		void LoadGuides(CProperty* pProperty);
-		void LoadInscribe(CProperty* pProperty);
+        void LoadSegments(ODRAW::CProperty* pProperty);
+        void LoadGuides(ODRAW::CProperty* pProperty);
+        void LoadInscribe(ODRAW::CProperty* pProperty);
 		void LoadAdjusts(LONG lIndex, LONG lValue);
 
 		void SetAdjusts(std::vector<LONG>* pList);
-		void ToCustomShape(ODRAW::CBaseShape* pShape, NSGuidesVML::CFormulasManager& oManager);
+        void ToCustomShape(ODRAW::Shape* pShape, NSGuidesVML::CFormulasManager& oManager);
 	};
 }

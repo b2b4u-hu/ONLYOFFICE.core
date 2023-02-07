@@ -32,7 +32,7 @@
 #pragma once
 
 #include <memory>
-#include "shapetype.h"
+#include "Enums.h"
 
 
 namespace XmlUtils { class CXmlNode; };
@@ -59,5 +59,5 @@ public:
 typedef std::shared_ptr<Shape> ShapePtr;
 
 
-static ShapePtr CreateByType(ShapeType type);
+static ShapePtr CreateByType(eShadeType type);
 }
