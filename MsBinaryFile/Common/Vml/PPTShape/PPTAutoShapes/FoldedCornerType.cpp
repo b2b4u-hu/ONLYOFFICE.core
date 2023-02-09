@@ -32,6 +32,7 @@
 
 #include "FoldedCornerType.h"
 
+using namespace ODRAW;
 // 65
 CFoldedCornerType::CFoldedCornerType()
 {

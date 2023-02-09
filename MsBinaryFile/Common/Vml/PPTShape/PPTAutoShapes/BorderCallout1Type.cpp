@@ -32,6 +32,8 @@
 
 #include "BorderCallout1Type.h"
 
+using namespace ODRAW;
+
 // 47
 CBorderCallout1Type::CBorderCallout1Type()
 {

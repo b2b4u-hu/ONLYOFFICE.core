@@ -32,6 +32,7 @@
 
 #include "IsoscelesTriangleType.h"
 
+using namespace ODRAW;
 // 5
 CIsoscelesTriangleType::CIsoscelesTriangleType()
 {

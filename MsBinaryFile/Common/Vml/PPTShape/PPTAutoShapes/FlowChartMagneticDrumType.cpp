@@ -32,6 +32,7 @@
 
 #include "FlowChartMagneticDrumType.h"
 
+using namespace ODRAW;
 // 133
 CFlowChartMagneticDrumType::CFlowChartMagneticDrumType()
 {

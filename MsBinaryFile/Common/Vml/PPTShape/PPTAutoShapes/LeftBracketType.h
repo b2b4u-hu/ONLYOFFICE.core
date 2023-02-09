@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 85
 DEFINE_SHAPE_CLASS(CLeftBracketType, CPPTShape)
+}

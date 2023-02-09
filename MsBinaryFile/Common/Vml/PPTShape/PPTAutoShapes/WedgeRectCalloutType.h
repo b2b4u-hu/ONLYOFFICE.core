@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 61
 DEFINE_SHAPE_CLASS(CWedgeRectCalloutType, CPPTShape)
+}

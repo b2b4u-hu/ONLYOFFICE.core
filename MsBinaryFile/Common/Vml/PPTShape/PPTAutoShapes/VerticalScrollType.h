@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 97
 DEFINE_SHAPE_CLASS(CVerticalScrollType, CPPTShape)
+}

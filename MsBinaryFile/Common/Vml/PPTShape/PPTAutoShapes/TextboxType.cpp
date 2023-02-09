@@ -32,6 +32,7 @@
 
 #include "TextboxType.h"
 
+using namespace ODRAW;
 /////////   !!!!!!!!!!!!!!!!!!!!  /////////////
 // 202
 CTextboxType::CTextboxType()

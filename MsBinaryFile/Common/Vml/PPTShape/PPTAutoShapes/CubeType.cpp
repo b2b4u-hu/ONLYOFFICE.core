@@ -32,6 +32,7 @@
 
 #include "CubeType.h"
 
+using namespace ODRAW;
 // 16
 CCubeType::CCubeType()
 {

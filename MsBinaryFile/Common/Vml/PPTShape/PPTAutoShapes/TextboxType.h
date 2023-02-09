@@ -32,6 +32,9 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 /////////   !!!!!!!!!!!!!!!!!!!!  /////////////
 // 202
 DEFINE_SHAPE_CLASS(CTextboxType, CPPTShape)
+}

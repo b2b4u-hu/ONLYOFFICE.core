@@ -32,6 +32,7 @@
 
 #include "FlowChartExtractType.h"
 
+using namespace ODRAW;
 // 127
 CFlowChartExtractType::CFlowChartExtractType()
 {

@@ -32,5 +32,9 @@
 #pragma once
 #include "../PptShape.h"
 
+
+namespace ODRAW
+{
 // 196
 DEFINE_SHAPE_CLASS(CActionButtonBeginType, CPPTShape)
+}

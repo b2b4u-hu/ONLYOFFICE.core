@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 55
 DEFINE_SHAPE_CLASS(CChevronType, CPPTShape)
+}

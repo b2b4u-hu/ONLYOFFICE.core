@@ -32,6 +32,7 @@
 
 #include "CanType.h"
 
+using namespace ODRAW;
 // 22
 CCanType::CCanType()
 {

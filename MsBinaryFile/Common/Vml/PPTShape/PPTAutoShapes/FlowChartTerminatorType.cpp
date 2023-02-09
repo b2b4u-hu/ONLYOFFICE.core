@@ -32,6 +32,7 @@
 
 #include "FlowChartTerminatorType.h"
 
+using namespace ODRAW;
 // 116
 CFlowChartTerminatorType::CFlowChartTerminatorType()
 {

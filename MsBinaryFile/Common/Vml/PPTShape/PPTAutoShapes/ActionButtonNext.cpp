@@ -32,6 +32,8 @@
 
 #include "ActionButtonNext.h"
 
+using namespace ODRAW;
+
 // 193
 CActionButtonNextType::CActionButtonNextType()
 {

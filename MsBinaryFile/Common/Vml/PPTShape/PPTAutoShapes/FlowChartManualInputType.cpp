@@ -32,6 +32,7 @@
 
 #include "FlowChartManualInputType.h"
 
+using namespace ODRAW;
 // 118
 CFlowChartManualInputType::CFlowChartManualInputType()
 {

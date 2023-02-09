@@ -32,6 +32,8 @@
 
 #include "ActionButtonEnd.h"
 
+using namespace ODRAW;
+
 // 195
 CActionButtonEndType::CActionButtonEndType()
 {

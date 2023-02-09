@@ -32,6 +32,7 @@
 
 #include "DownArrowType.h"
 
+using namespace ODRAW;
 // 67
 CDownArrowType::CDownArrowType()
 {

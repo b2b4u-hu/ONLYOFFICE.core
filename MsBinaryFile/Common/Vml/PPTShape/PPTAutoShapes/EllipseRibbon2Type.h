@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 108
 DEFINE_SHAPE_CLASS(CEllipceRibbon2Type, CPPTShape)
+}

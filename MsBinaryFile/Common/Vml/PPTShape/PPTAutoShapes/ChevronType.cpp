@@ -32,6 +32,7 @@
 
 #include "ChevronType.h"
 
+using namespace ODRAW;
 // 55
 CChevronType::CChevronType()
 {

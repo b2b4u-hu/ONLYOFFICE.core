@@ -32,6 +32,7 @@
 
 #include "DiamondType.h"
 
+using namespace ODRAW;
 // 4
 CDiamondType::CDiamondType()
 {

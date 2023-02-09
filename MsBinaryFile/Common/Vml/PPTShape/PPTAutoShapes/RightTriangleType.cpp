@@ -32,6 +32,7 @@
 
 #include "RightTriangleType.h"
 
+using namespace ODRAW;
 // 6
 CRightTriangleType::CRightTriangleType()
 {

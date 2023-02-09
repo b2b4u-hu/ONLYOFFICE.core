@@ -32,6 +32,8 @@
 
 #include "ActionButtonMovie.h"
 
+using namespace ODRAW;
+
 // 200
 CActionButtonMovieType::CActionButtonMovieType()
 {

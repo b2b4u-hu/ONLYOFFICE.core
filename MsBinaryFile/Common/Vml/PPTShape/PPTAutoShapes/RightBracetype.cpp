@@ -32,6 +32,7 @@
 
 #include "RightBracetype.h"
 
+using namespace ODRAW;
 // 88
 CRightBracetype::CRightBracetype()
 {

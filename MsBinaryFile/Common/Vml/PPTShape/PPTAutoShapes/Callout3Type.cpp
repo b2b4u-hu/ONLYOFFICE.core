@@ -32,6 +32,8 @@
 
 #include "Callout3Type.h"
 
+using namespace ODRAW;
+
 // 43
 CCallout3Type::CCallout3Type()
 {

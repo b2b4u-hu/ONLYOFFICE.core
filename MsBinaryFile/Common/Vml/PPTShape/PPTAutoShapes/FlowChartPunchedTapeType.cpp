@@ -32,6 +32,7 @@
 
 #include "FlowChartPunchedTapeType.h"
 
+using namespace ODRAW;
 // 122
 CFlowChartPunchedTapeType::CFlowChartPunchedTapeType()
 {

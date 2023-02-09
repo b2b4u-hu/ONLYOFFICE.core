@@ -32,6 +32,8 @@
 
 #include "ActionButtonHome.h"
 
+using namespace ODRAW;
+
 // 190
 CActionButtonHomeType::CActionButtonHomeType()
 {

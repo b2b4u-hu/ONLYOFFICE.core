@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 58
 DEFINE_SHAPE_CLASS(CSeal8Type, CPPTShape)
-
-
+}

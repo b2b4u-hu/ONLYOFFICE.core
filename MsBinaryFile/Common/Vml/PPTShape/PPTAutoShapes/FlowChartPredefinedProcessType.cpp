@@ -32,6 +32,7 @@
 
 #include "FlowChartPredefinedProcessType.h"
 
+using namespace ODRAW;
 // 112
 CFlowChartPredefinedProcessType::CFlowChartPredefinedProcessType()
 {

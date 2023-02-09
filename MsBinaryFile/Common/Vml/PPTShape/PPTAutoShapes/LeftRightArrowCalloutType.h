@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 81
 DEFINE_SHAPE_CLASS(CLeftRightArrowCalloutType, CPPTShape)
-
-
+}

@@ -32,6 +32,7 @@
 
 #include "WaveDoubleType.h"
 
+using namespace ODRAW;
 // 188
 CWaveDoubleType::CWaveDoubleType()
 {

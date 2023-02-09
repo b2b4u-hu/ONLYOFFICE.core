@@ -32,6 +32,7 @@
 
 #include "NoSmokingType.h"
 
+using namespace ODRAW;
 // 57
 CNoSmokingType::CNoSmokingType()
 {

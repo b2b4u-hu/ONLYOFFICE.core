@@ -502,8 +502,14 @@ bool CPPTShape::SetShapeType(PPTShapes::ShapeType type)
 	}
 
 	m_eType = PPTShapes::sptCustom;
-	return false;
+    return false;
 }
+
+unsigned int CPPTShape::GetTypeCode() const
+{
+    return m_eType;
+}
+
 void CPPTShape::CalcTextRectOffsets(double& dPercentLeft, double& dPercentTop, double& dPercentRight, double& dPercentBottom, LONG nIndex)
 {
 	dPercentLeft = 0;

@@ -32,6 +32,7 @@
 
 #include "FlowChartMergeType.h"
 
+using namespace ODRAW;
 // 128
 CFlowChartMergeType::CFlowChartMergeType()
 {

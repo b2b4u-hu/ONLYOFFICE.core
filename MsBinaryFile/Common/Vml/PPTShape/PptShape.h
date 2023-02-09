@@ -35,7 +35,6 @@
 #include "PptShapeEnum.h"
 #include "../../../../OOXML/DocxFormat/Logic/VmlOfficeDrawing.h"
 
-using namespace ODRAW;
 
 static double FixedPointToDouble(unsigned int op)
 {
@@ -122,9 +121,8 @@ namespace ODRAW
 		boost::optional<double> dKeyZ;
 		boost::optional<double> dFillZ;
 	};
-}
 
-class CPPTShape : public CBaseShape
+class CPPTShape : public CBaseShape, public DocFileFormat::IVisitable
 {
 public:
 	PPTShapes::ShapeType			m_eType;
@@ -173,9 +171,11 @@ public:
 	virtual bool SetToDublicate(CBaseShape* Shape);
 
 	bool SetShapeType(PPTShapes::ShapeType type);
+    unsigned int GetTypeCode() const;
 	void CalcTextRectOffsets(double& dPercentLeft, double& dPercentTop, double& dPercentRight, double& dPercentBottom, LONG nIndex = 0);
 	bool IsWordArt();
 
 protected:
 	bool GetPos(std::wstring str, LONG& lValue);
 };
+}

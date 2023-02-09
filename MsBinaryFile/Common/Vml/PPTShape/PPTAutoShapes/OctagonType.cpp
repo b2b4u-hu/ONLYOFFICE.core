@@ -32,6 +32,7 @@
 
 #include "OctagonType.h"
 
+using namespace ODRAW;
 // 10
 COctagonType::COctagonType()
 {

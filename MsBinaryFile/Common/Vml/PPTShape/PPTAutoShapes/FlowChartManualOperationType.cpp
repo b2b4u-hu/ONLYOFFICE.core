@@ -32,6 +32,7 @@
 
 #include "FlowChartManualOperationType.h"
 
+using namespace ODRAW;
 // 119
 CFlowChartManualOperationType::CFlowChartManualOperationType()
 {

@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 132
 DEFINE_SHAPE_CLASS(CFlowChartMagneticDiskType, CPPTShape)
-
-
+}

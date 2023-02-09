@@ -32,6 +32,7 @@
 
 #include "UturnArrowType.h"
 
+using namespace ODRAW;
 // 101
 CUturnArrowType::CUturnArrowType()
 {

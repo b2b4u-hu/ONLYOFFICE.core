@@ -32,6 +32,7 @@
 
 #include "CurvedConnector.h"
 
+using namespace ODRAW;
 // 38
 CCurvedConnectorType::CCurvedConnectorType()
 {

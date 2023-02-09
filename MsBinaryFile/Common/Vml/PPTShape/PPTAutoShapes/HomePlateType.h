@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 15
 DEFINE_SHAPE_CLASS(CHomePlateType, CPPTShape)
-
-
+}

@@ -32,6 +32,7 @@
 
 #include "FlowChartMultidocumentType.h"
 
+using namespace ODRAW;
 // 115
 CFlowChartMultidocumentType::CFlowChartMultidocumentType()
 {

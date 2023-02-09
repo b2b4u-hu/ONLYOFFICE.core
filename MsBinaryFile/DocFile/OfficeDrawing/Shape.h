@@ -32,7 +32,7 @@
 #pragma once
 
 #include "Record.h"
-#include "ShapeTypeFactory.h"
+#include "../../Common/Vml/PPTShape/PptShape.h"
 
 namespace DocFileFormat
 {
@@ -53,7 +53,7 @@ namespace DocFileFormat
 		bool	fBackground;
 		bool	fHaveSpt;
 
-		ShapeType* shapeType;
+        boost::shared_ptr<ODRAW::CPPTShape> shapeType;
 
 	public:
 		static const unsigned short TYPE_CODE_0xF00A = 0xF00A;
@@ -69,7 +69,7 @@ namespace DocFileFormat
 			return spid;
 		}
 
-		inline ShapeType* GetShapeType() const
+        inline boost::shared_ptr<ODRAW::CPPTShape> GetShapeType() const
 		{
 			return shapeType;
 		}
@@ -80,7 +80,7 @@ namespace DocFileFormat
 
 			if ( shapeType != NULL )
 			{
-				isResult = ( typeid(*shapeType) == typeid(T) );
+                isResult = ( typeid(*shapeType) == typeid(T) );
 			}
 
 			return isResult;

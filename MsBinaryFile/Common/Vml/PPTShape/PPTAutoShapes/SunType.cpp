@@ -32,6 +32,7 @@
 
 #include "SunType.h"
 
+using namespace ODRAW;
 // 183
 CSunType::CSunType()
 {

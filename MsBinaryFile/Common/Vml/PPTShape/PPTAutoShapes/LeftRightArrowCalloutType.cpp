@@ -32,6 +32,7 @@
 
 #include "LeftRightArrowCalloutType.h"
 
+using namespace ODRAW;
 // 81
 CLeftRightArrowCalloutType::CLeftRightArrowCalloutType()
 {

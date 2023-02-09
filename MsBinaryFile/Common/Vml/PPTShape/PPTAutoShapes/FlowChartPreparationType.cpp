@@ -32,6 +32,7 @@
 
 #include "FlowChartPreparationType.h"
 
+using namespace ODRAW;
 // 117
 CFlowChartPreparationType::CFlowChartPreparationType()
 {

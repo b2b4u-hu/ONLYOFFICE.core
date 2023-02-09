@@ -32,6 +32,8 @@
 
 #include "ActionButtonReturn.h"
 
+using namespace ODRAW;
+
 // 197
 CActionButtonReturnType::CActionButtonReturnType()
 {

@@ -32,6 +32,8 @@
 
 #include "ActionButtonBeginning.h"
 
+using namespace ODRAW;
+
 // 196
 CActionButtonBeginType::CActionButtonBeginType()
 {

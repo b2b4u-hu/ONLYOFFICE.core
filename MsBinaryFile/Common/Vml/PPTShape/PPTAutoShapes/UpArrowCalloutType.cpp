@@ -32,6 +32,7 @@
 
 #include "UpArrowCalloutType.h"
 
+using namespace ODRAW;
 // 79
 CUpArrowCalloutType::CUpArrowCalloutType()
 {

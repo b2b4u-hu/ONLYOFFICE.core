@@ -32,6 +32,7 @@
 
 #include "WedgeEllipseCalloutType.h"
 
+using namespace ODRAW;
 // 63
 CWedgeEllipseCalloutType::CWedgeEllipseCalloutType()
 {

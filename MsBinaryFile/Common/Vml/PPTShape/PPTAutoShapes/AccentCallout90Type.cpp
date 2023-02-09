@@ -32,6 +32,8 @@
 
 #include "AccentCallout90Type.h"
 
+using namespace ODRAW;
+
 // 179
 CAccentCallout90Type::CAccentCallout90Type()
 {

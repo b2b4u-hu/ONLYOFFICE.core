@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 9
 DEFINE_SHAPE_CLASS(CHexagonType, CPPTShape)
+}

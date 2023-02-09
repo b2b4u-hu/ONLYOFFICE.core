@@ -32,6 +32,8 @@
 
 #include "ActionButtonBlank.h"
 
+using namespace ODRAW;
+
 // 189
 CActionButtonBlankType::CActionButtonBlankType()
 {

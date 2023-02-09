@@ -32,6 +32,7 @@
 
 #include "DownArrowCalloutType.h"
 
+using namespace ODRAW;
 // 80
 CDownArrowCalloutType::CDownArrowCalloutType()
 {

@@ -32,6 +32,7 @@
 
 #include "HexagonType.h"
 
+using namespace ODRAW;
 // 9
 CHexagonType::CHexagonType()
 {

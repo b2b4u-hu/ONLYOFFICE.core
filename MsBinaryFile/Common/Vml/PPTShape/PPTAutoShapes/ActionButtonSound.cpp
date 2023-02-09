@@ -32,6 +32,8 @@
 
 #include "ActionButtonSound.h"
 
+using namespace ODRAW;
+
 // 199
 CActionButtonSoundType::CActionButtonSoundType()
 {

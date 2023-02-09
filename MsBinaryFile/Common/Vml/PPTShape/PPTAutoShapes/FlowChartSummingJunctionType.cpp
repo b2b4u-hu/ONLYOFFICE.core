@@ -32,6 +32,7 @@
 
 #include "FlowChartSummingJunctionType.h"
 
+using namespace ODRAW;
 // 123
 CFlowChartSummingJunctionType::CFlowChartSummingJunctionType()
 {

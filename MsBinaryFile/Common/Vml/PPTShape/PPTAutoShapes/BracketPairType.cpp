@@ -32,6 +32,8 @@
 
 #include "BracketPairType.h"
 
+using namespace ODRAW;
+
 // 185
 CBracketPairType::CBracketPairType()
 {

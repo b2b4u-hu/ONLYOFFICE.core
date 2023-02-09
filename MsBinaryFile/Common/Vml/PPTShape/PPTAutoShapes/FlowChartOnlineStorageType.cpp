@@ -32,6 +32,7 @@
 
 #include "FlowChartOnlineStorageType.h"
 
+using namespace ODRAW;
 // 130
 CFlowChartOnlineStorageType::CFlowChartOnlineStorageType()
 {

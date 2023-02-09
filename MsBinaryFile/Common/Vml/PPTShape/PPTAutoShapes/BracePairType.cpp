@@ -32,6 +32,8 @@
 
 #include "BracePairType.h"
 
+using namespace ODRAW;
+
 // 186
 CBracePairType::CBracePairType()
 {

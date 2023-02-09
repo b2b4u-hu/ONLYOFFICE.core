@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 125
 DEFINE_SHAPE_CLASS(CFlowChartCollateType, CPPTShape)
-
-
+}

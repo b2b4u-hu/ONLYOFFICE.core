@@ -32,6 +32,7 @@
 
 #include "Callout90Type.h"
 
+using namespace ODRAW;
 // 178
 CCallout90Type::CCallout90Type()
 {

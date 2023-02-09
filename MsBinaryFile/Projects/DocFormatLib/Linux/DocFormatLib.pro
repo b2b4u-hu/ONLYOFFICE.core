@@ -131,7 +131,6 @@ SOURCES += \
 	\
 	../../../DocFile/OfficeDrawing/Record.cpp \
 	../../../DocFile/OfficeDrawing/RecordFactory.cpp \
-	../../../DocFile/OfficeDrawing/ShapeTypeFactory.cpp \
 	../../../DocFile/OfficeDrawing/BitmapBlip.cpp \
 	../../../DocFile/OfficeDrawing/BlipStoreContainer.cpp \
 	../../../DocFile/OfficeDrawing/BlipStoreEntry.cpp \
@@ -293,7 +292,6 @@ HEADERS +=  \
 	../../../DocFile/OfficeDrawing/ShapeContainer.h \
 	../../../DocFile/OfficeDrawing/ShapeOptions.h \
 	../../../DocFile/OfficeDrawing/ShapeType.h \
-	../../../DocFile/OfficeDrawing/ShapeTypeFactory.h \
 	../../../DocFile/OfficeDrawing/SplitMenuColorContainer.h \
 	../../../DocFile/OfficeDrawing/UnknownRecord.h \
 	\

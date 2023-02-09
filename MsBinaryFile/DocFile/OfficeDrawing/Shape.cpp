@@ -41,9 +41,9 @@ namespace DocFileFormat
 	{
 	}
 	Shape::~Shape()
-	{
-		RELEASEOBJECT( shapeType );
+    {
 	}
+
 	Shape::Shape( IBinaryReader* _reader, unsigned int size, unsigned int typeCode, unsigned int version, unsigned int instance ):
 	Record( _reader, size, typeCode, version, instance ), spid(0), fGroup(false), fChild(false), fPatriarch(false), fDeleted(false), fOleShape(false),
 		fHaveMaster(false), fFlipH(false), fFlipV(false), fConnector(false), fHaveAnchor(false), fBackground(false),
@@ -67,11 +67,7 @@ namespace DocFileFormat
 		fHaveSpt			=	FormatUtils::BitmaskToBool( flag, 0x800 );
 
 		if (Instance > 0)
-			shapeType			=	ShapeTypeFactory::NewShapeType((MSOSPT)Instance);
-		else if (!fHaveSpt)
-		{
-			shapeType			=	ShapeTypeFactory::NewShapeType(msosptNotPrimitive);
-		}
+            shapeType           = ODRAW::CPPTShape::CreateByType((PPTShapes::ShapeType)Instance);
 	}
 
 	Record* Shape::NewObject( IBinaryReader* _reader, unsigned int bodySize, unsigned int typeCode, unsigned int version, unsigned int instance )

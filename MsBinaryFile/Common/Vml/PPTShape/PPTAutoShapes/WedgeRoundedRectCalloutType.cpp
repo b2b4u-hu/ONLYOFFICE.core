@@ -32,6 +32,7 @@
 
 #include "WedgeRoundedRectCalloutType.h"
 
+using namespace ODRAW;
 // 62
 CWedgeRoundedRectCalloutType::CWedgeRoundedRectCalloutType()
 {

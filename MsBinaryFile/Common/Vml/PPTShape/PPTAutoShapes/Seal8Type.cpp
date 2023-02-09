@@ -32,6 +32,7 @@
 
 #include "Seal8Type.h"
 
+using namespace ODRAW;
 // 58
 CSeal8Type::CSeal8Type()
 {

@@ -32,6 +32,7 @@
 
 #include "FlowChartMagneticTapeType.h"
 
+using namespace ODRAW;
 // 131
 CFlowChartMagneticTapeType::CFlowChartMagneticTapeType()
 {

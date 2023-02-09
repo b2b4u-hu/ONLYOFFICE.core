@@ -32,6 +32,7 @@
 
 #include "LineType.h"
 
+using namespace ODRAW;
 // 20
 CLineType::CLineType()
 {

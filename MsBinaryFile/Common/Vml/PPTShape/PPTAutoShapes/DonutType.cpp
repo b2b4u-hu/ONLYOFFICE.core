@@ -32,6 +32,7 @@
 
 #include "DonutType.h"
 
+using namespace ODRAW;
 // 23
 CDonutType::CDonutType()
 {

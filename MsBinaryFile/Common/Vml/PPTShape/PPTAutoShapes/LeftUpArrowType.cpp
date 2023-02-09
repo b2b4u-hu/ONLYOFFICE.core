@@ -32,6 +32,7 @@
 
 #include "LeftUpArrowType.h"
 
+using namespace ODRAW;
 // 89
 CLeftUpArrowType::CLeftUpArrowType()
 {

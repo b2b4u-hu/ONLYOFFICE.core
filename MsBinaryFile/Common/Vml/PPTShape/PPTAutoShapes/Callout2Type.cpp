@@ -32,6 +32,8 @@
 
 #include "Callout2Type.h"
 
+using namespace ODRAW;
+
 // 42
 	CCallout2Type::CCallout2Type()
     {

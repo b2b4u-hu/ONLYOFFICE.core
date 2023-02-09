@@ -32,6 +32,7 @@
 
 #include "RectangleType.h"
 
+using namespace ODRAW;
 // 1
 CRectangleType::CRectangleType()
 {

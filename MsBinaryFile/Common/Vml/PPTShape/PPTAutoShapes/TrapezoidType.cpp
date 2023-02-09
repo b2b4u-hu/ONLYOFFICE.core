@@ -32,6 +32,7 @@
 
 #include "TrapezoidType.h"
 
+using namespace ODRAW;
 // 8
 CTrapezoidType::CTrapezoidType()
 {

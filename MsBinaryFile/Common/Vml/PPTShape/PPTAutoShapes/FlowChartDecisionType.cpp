@@ -32,6 +32,7 @@
 
 #include "FlowChartDecisionType.h"
 
+using namespace ODRAW;
 // 110
 CFlowChartDecisionType::CFlowChartDecisionType()
 {

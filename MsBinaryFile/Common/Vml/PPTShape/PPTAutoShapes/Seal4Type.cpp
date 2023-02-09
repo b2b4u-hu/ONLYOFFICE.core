@@ -32,6 +32,7 @@
 
 #include "Seal4Type.h"
 
+using namespace ODRAW;
 // 187
 CSeal4Type::CSeal4Type()
 {

@@ -32,6 +32,8 @@
 
 #include "BentUpArrowType.h"
 
+using namespace ODRAW;
+
 // 90
 CBentUpArrowType::CBentUpArrowType()
 {

@@ -32,6 +32,7 @@
 
 #include "SmileyFaceType.h"
 
+using namespace ODRAW;
 // 96
 CSmileyFaceType::CSmileyFaceType()
 {

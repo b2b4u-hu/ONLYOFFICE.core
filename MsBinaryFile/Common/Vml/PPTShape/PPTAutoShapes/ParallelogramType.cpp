@@ -32,6 +32,7 @@
 
 #include "ParallelogramType.h"
 
+using namespace ODRAW;
 // 7
 CParallelogramType::CParallelogramType()
 {

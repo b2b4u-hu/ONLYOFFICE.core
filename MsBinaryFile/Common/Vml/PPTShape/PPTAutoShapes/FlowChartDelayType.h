@@ -32,7 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 135
 DEFINE_SHAPE_CLASS(CFlowChartDelayType, CPPTShape)
-
-
+}

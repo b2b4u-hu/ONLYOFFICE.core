@@ -32,6 +32,7 @@
 
 #include "RibbonDownType.h"
 
+using namespace ODRAW;
 // 53
 CRibbonDownType::CRibbonDownType()
 {

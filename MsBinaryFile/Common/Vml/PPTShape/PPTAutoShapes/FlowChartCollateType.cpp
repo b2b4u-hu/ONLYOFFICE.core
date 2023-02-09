@@ -32,6 +32,7 @@
 
 #include "FlowChartCollateType.h"
 
+using namespace ODRAW;
 // 125
 CFlowChartCollateType::CFlowChartCollateType()
 {

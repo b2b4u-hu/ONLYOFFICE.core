@@ -32,6 +32,7 @@
 
 #include "LightningBoltType.h"
 
+using namespace ODRAW;
 // 73
 CLightningBoltType::CLightningBoltType()
 {

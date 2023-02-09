@@ -32,6 +32,7 @@
 
 #include "EllipseRibbon2Type.h"
 
+using namespace ODRAW;
 // 108
 CEllipceRibbon2Type::CEllipceRibbon2Type()
 {

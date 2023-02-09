@@ -32,6 +32,7 @@
 
 #include "HorisontalScrollType.h"
 
+using namespace ODRAW;
 // 98
 CHorizontalScrollType::CHorizontalScrollType()
 {

@@ -32,6 +32,7 @@
 
 #include "Seal16Type.h"
 
+using namespace ODRAW;
 // 59
 CSeal16Type::CSeal16Type()
 {

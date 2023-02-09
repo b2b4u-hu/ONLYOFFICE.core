@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 180
 DEFINE_SHAPE_CLASS(CBorderCallout90Type, CPPTShape)
+}

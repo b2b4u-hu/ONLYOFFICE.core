@@ -32,6 +32,7 @@
 
 #include "PlaqueType.h"
 
+using namespace ODRAW;
 // 21
 CPlaqueType::CPlaqueType()
 {

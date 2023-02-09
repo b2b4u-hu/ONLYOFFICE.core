@@ -43,6 +43,7 @@
 #include "DrawingPrimitives.h"
 
 #include "../../DesktopEditor/common/StringExt.h"
+#include "../../../Common/Vml/PPTShape/PresetShapesHeader.h"
 
 #include "../Common/Base/FormatUtils.h"
 #include "../XlsFile/Format/Logic/Biff_structures/ODRAW/OfficeArtFOPTE.h"
@@ -529,7 +530,7 @@ namespace DocFileFormat
 			}break;
 			case ODRAW::cxstyle:
 			{
-				if (pShape->GetShapeType() == NULL)
+                if (pShape->GetShapeType().get() == NULL)
 				{
 					freeform = false;
 					m_pXmlWriter->WriteAttribute(L"type", L"#_x0000_t32");
@@ -973,14 +974,14 @@ namespace DocFileFormat
             nCode =	pShape->GetShapeType()->GetTypeCode();
 		}
 
-		if (DocFileFormat::msosptRoundRectangle == nCode)
+        if (ODRAW::sptRoundRectangle == nCode)
 		{
 			if (nAdjValues)												
 			{
 				m_pXmlWriter->WriteAttribute(L"arcsize", m_nAdjValues[0]);
 			}
 		}
-		else if (DocFileFormat::msosptPictureFrame == nCode)
+        else if (ODRAW::sptPictureFrame == nCode)
 		{
 			if (bPicturePresent == false)
 				m_isPictureBroken = true;
@@ -1225,7 +1226,7 @@ namespace DocFileFormat
 		}
 
 //ShapeType 
-		if (NULL != pShape->GetShapeType() /* && !m_isInlineShape*/) //bullete only???
+        if (pShape->GetShapeType() /* && !m_isInlineShape*/) //bullete only???
 		{
 			VMLShapeTypeMapping oXmlMapper(m_pXmlWriter, m_isInlineShape);
 			pShape->GetShapeType()->Convert(&oXmlMapper);
@@ -1241,19 +1242,19 @@ namespace DocFileFormat
 			{
 				m_pXmlWriter->WriteNodeBegin( L"v:background", true );
 			}
-			else if (pShape->is<OvalType>())
+            else if (pShape->is<ODRAW::CEllipseType>())
 			{
 				m_pXmlWriter->WriteNodeBegin( L"v:oval", true );
 			}
-			else if (pShape->is<RoundedRectangleType>())
+            else if (pShape->is<ODRAW::CRoundedRectangleType>())
 			{
-				m_pXmlWriter->WriteNodeBegin( L"v:roundrect", true );
+                m_pXmlWriter->WriteNodeBegin( L"v:roundrect", true );
 			}
-			else if (pShape->is<RectangleType>())
+            else if (pShape->is<ODRAW::CRectangleType>())
 			{
 				m_pXmlWriter->WriteNodeBegin( L"v:rect", true );
 			}
-			else if (pShape->is<LineType>())
+            else if (pShape->is<ODRAW::CLineType>())
 			{
 				m_pXmlWriter->WriteNodeBegin(L"v:line", true);
 			}

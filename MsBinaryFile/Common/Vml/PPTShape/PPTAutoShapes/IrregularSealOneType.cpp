@@ -32,6 +32,7 @@
 
 #include "IrregularSealOneType.h"
 
+using namespace ODRAW;
 // 71
 CIrregularSealOneType::CIrregularSealOneType()
 {

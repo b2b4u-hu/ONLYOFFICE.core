@@ -32,6 +32,8 @@
 
 #include "ActionButtonInfo.h"
 
+using namespace ODRAW;
+
 // 192
 CActionButtonInfoType::CActionButtonInfoType()
 {

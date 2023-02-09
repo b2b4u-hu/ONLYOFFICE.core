@@ -32,6 +32,8 @@
 
 #include "BevelType.h"
 
+using namespace ODRAW;
+
 // 84
 CBevelType::CBevelType()
 {

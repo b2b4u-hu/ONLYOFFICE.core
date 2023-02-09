@@ -32,6 +32,7 @@
 
 #include "QuadArrowType.h"
 
+using namespace ODRAW;
 // 76
 CQuadArrowType::CQuadArrowType()
 {

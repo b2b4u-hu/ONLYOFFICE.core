@@ -32,6 +32,7 @@
 
 #include "CurvedLeftArrowType.h"
 
+using namespace ODRAW;
 // 103
 CCurvedLeftArrowType::CCurvedLeftArrowType()
 {

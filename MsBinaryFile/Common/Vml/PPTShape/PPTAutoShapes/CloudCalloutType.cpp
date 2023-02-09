@@ -32,6 +32,7 @@
 
 #include "CloudCalloutType.h"
 
+using namespace ODRAW;
 // 106
 CCloudCalloutType::CCloudCalloutType()
 {

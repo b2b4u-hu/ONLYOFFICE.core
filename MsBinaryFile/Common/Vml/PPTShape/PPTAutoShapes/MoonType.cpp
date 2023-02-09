@@ -32,6 +32,7 @@
 
 #include "MoonType.h"
 
+using namespace ODRAW;
 // 184
 CMoonType::CMoonType()
 {

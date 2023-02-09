@@ -32,6 +32,8 @@
 
 #include "BentConnector.h"
 
+using namespace ODRAW;
+
 // 34
 CBentConnectorType::CBentConnectorType()
 {

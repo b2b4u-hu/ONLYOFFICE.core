@@ -32,6 +32,7 @@
 
 #include "QuadArrowCalloutType.h"
 
+using namespace ODRAW;
 // 83
 CQuadArrowCalloutType::CQuadArrowCalloutType()
 {

@@ -34,16 +34,7 @@
 
 namespace DocFileFormat
 {
-	Handle::Handle()
-	{
-	}
-	Handle::Handle(std::wstring pos, std::wstring xRange)
-	{
-		position	=	pos;
-		xrange		=	xRange;
-	}
-
-	ShapeType::ShapeType (unsigned int typeCode) : Filled(true), Stroked(true), TypeCode(typeCode), Joins(miter), ShapeConcentricFill(false)
+    ShapeType::ShapeType (unsigned int typeCode)
 	{
 	}
 	ShapeType::~ShapeType()
@@ -51,6 +42,6 @@ namespace DocFileFormat
 	}
 	unsigned int ShapeType::GetTypeCode() const
 	{
-		return TypeCode;
+        return shape.get() ? shape->m_eType : PPTShapes::ShapeType::sptNil;
 	}
 }

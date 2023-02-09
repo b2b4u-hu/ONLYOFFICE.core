@@ -32,6 +32,8 @@
 
 #include "arctype.h"
 
+using namespace ODRAW;
+
 // 19
 CArcType::CArcType()
 {

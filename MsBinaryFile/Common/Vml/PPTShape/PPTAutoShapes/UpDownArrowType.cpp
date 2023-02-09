@@ -32,6 +32,7 @@
 
 #include "UpDownArrowType.h"
 
+using namespace ODRAW;
 // 70
 CUpDownArrowType::CUpDownArrowType()
 {

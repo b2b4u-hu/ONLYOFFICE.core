@@ -32,6 +32,7 @@
 
 #include "LeftRightUpArrow.h"
 
+using namespace ODRAW;
 // 182
 CLeftRightUpArrow::CLeftRightUpArrow()
 {

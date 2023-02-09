@@ -32,6 +32,7 @@
 
 #include "FlowChartPunchedCardType.h"
 
+using namespace ODRAW;
 // 121
 CFlowChartPunchedCardType::CFlowChartPunchedCardType()
 {

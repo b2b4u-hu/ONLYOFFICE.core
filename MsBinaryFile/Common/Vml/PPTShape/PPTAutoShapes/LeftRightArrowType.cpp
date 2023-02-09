@@ -32,6 +32,7 @@
 
 #include "LeftRightArrowType.h"
 
+using namespace ODRAW;
 // 69
 CLeftRightArrowType::CLeftRightArrowType()
 {

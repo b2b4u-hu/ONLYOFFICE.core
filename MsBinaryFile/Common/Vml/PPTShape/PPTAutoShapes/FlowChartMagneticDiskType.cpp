@@ -32,6 +32,7 @@
 
 #include "FlowChartMagneticDiskType.h"
 
+using namespace ODRAW;
 // 132
 CFlowChartMagneticDiskType::CFlowChartMagneticDiskType()
 {

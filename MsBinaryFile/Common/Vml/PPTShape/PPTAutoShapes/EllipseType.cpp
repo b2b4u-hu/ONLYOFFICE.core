@@ -32,6 +32,8 @@
 
 #include "EllipseType.h"
 
+using namespace ODRAW;
+
 // 3
 CEllipseType::CEllipseType()
 {

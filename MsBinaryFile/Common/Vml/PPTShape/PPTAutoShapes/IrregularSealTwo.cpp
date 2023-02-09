@@ -32,6 +32,7 @@
 
 #include "IrregularSealTwo.h"
 
+using namespace ODRAW;
 // 72
 CIrregularSealTwo::CIrregularSealTwo()
 {

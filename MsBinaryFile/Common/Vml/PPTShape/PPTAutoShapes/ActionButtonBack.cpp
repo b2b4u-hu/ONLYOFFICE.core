@@ -32,6 +32,8 @@
 
 #include "ActionButtonBack.h"
 
+using namespace ODRAW;
+
 // 194
 CActionButtonBackType::CActionButtonBackType()
 {

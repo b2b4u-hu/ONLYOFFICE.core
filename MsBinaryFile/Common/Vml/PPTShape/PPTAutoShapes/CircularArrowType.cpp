@@ -32,6 +32,7 @@
 
 #include "CircularArrowType.h"
 
+using namespace ODRAW;
 // 99
 CCircularArrowType::CCircularArrowType()
 {

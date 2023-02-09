@@ -224,7 +224,7 @@ namespace DocFileFormat
 		}
 	}
 
-	std::wstring VMLShapeTypeMapping::GenerateTypeId (const ShapeType* pShape)
+    std::wstring VMLShapeTypeMapping::GenerateTypeId (const boost::shared_ptr<ODRAW::CPPTShape> pShape)
 	{
 		std::wstring type;
 

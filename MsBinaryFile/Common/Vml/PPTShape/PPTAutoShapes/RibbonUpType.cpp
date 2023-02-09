@@ -32,6 +32,7 @@
 
 #include "RibbonUpType.h"
 
+using namespace ODRAW;
 // 54
 CRibbonUpType::CRibbonUpType()
 {

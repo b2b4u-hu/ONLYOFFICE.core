@@ -32,6 +32,7 @@
 
 #include "FlowChartOrType.h"
 
+using namespace ODRAW;
 // 124
 CFlowChartOrType::CFlowChartOrType()
 {

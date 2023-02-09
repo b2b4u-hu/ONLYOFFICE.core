@@ -32,6 +32,7 @@
 
 #include "RoundedRectangleType.h"
 
+using namespace ODRAW;
 // 2
 CRoundedRectangleType::CRoundedRectangleType()
 {

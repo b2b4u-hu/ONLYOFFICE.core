@@ -32,6 +32,7 @@
 
 #include "PlusType.h"
 
+using namespace ODRAW;
 // 11
 CPlusType::CPlusType()
 {

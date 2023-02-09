@@ -32,6 +32,8 @@
 
 #include "BorderCallout90Type.h"
 
+using namespace ODRAW;
+
 // 180
 CBorderCallout90Type::CBorderCallout90Type()
 {

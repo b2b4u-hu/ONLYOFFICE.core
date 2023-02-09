@@ -32,6 +32,8 @@
 
 #include "BlockArcType.h"
 
+using namespace ODRAW;
+
 // 95
 CBlockArcType::CBlockArcType()
 {

@@ -32,6 +32,7 @@
 
 #include "WaveType.h"
 
+using namespace ODRAW;
 // 64
 CWaveType::CWaveType()
 {

@@ -32,6 +32,7 @@
 
 #include "StripedRightArrowType.h"
 
+using namespace ODRAW;
 // 93
 CStripedRightArrowType::CStripedRightArrowType()
 {

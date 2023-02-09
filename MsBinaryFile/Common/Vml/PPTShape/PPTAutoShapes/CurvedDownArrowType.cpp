@@ -32,6 +32,7 @@
 
 #include "CurvedDownArrowType.h"
 
+using namespace ODRAW;
 // 105
 CCurvedDownArrowType::CCurvedDownArrowType()
 {

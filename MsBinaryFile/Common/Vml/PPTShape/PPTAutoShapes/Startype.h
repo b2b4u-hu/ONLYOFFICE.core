@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 12
 DEFINE_SHAPE_CLASS(CStarType, CPPTShape)
+}

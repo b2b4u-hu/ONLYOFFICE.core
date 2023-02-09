@@ -32,6 +32,7 @@
 
 #include "NotchedRightArrowType.h"
 
+using namespace ODRAW;
 // 94
 CNotchedRightArrowType::CNotchedRightArrowType()
 {

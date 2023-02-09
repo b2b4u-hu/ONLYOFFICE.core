@@ -32,6 +32,7 @@
 
 #include "RightArrowType.h"
 
+using namespace ODRAW;
 // 13
 CRightArrowType::CRightArrowType()
 {

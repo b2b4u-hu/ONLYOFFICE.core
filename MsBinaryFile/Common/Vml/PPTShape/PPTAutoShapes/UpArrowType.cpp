@@ -32,6 +32,7 @@
 
 #include "UpArrowType.h"
 
+using namespace ODRAW;
 // 68
 CUpArrowType::CUpArrowType()
 {

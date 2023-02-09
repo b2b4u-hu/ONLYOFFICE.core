@@ -32,6 +32,7 @@
 
 #include "FlowChartDelayType.h"
 
+using namespace ODRAW;
 // 135
 CFlowChartDelayType::CFlowChartDelayType()
 {

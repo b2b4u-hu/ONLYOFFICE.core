@@ -32,6 +32,7 @@
 
 #include "VerticalScrollType.h"
 
+using namespace ODRAW;
 // 97
 CVerticalScrollType::CVerticalScrollType()
 {

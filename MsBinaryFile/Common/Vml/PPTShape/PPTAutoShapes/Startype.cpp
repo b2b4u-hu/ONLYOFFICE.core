@@ -32,6 +32,7 @@
 
 #include "Startype.h"
 
+using namespace ODRAW;
 // 12
 CStarType::CStarType()
 {

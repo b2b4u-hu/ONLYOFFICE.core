@@ -32,6 +32,7 @@
 
 #include "PentagonType.h"
 
+using namespace ODRAW;
 // 56
 CPentagonType::CPentagonType()
 {

@@ -32,6 +32,7 @@
 
 #include "HeartType.h"
 
+using namespace ODRAW;
 // 74
 CHeartType::CHeartType()
 {

@@ -32,6 +32,8 @@
 
 #include "ActionButtonHelp.h"
 
+using namespace ODRAW;
+
 // 191
 CActionButtonHelpType::CActionButtonHelpType()
 {

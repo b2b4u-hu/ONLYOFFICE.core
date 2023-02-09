@@ -32,6 +32,7 @@
 
 #include "LeftBracketType.h"
 
+using namespace ODRAW;
 // 85
 CLeftBracketType::CLeftBracketType()
 {

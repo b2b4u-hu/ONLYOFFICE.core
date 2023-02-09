@@ -32,6 +32,8 @@
 
 #include "AccentBorderCallout2Type.h"
 
+using namespace ODRAW;
+
 // 51
 CAccentBorderCallout2Type::CAccentBorderCallout2Type()
 {

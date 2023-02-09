@@ -32,6 +32,7 @@
 
 #include "StraightConnectorType.h"
 
+using namespace ODRAW;
 // 32
 CStraightConnectorType::CStraightConnectorType()
 {

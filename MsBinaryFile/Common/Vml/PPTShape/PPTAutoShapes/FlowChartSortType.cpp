@@ -32,6 +32,7 @@
 
 #include "FlowChartSortType.h"
 
+using namespace ODRAW;
 // 126
 CFlowChartSortType::CFlowChartSortType()
 {

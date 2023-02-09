@@ -32,5 +32,8 @@
 #pragma once
 #include "../PptShape.h"
 
+namespace ODRAW
+{
 // 53
 DEFINE_SHAPE_CLASS(CRibbonDownType, CPPTShape)
+}

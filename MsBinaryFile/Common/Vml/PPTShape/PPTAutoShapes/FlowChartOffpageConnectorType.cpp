@@ -32,6 +32,7 @@
 
 #include "FlowChartOffpageConnectorType.h"
 
+using namespace ODRAW;
 // 177
 CFlowChartOffpageConnectorType::CFlowChartOffpageConnectorType()
 {

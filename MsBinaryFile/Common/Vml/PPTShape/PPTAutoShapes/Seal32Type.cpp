@@ -32,6 +32,7 @@
 
 #include "Seal32Type.h"
 
+using namespace ODRAW;
 // 60
 CSeal32Type::CSeal32Type()
 {

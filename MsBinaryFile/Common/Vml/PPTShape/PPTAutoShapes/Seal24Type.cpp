@@ -32,6 +32,7 @@
 
 #include "Seal24Type.h"
 
+using namespace ODRAW;
 // 92
 CSeal24Type::CSeal24Type()
 {

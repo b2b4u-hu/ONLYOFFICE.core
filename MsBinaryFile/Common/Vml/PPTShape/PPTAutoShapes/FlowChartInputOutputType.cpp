@@ -32,6 +32,7 @@
 
 #include "FlowChartInputOutputType.h"
 
+using namespace ODRAW;
 // 111
 CFlowChartInputOutputType::CFlowChartInputOutputType()
 {

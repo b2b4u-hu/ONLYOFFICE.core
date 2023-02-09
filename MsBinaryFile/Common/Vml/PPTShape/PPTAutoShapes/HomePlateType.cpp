@@ -32,6 +32,7 @@
 
 #include "HomePlateType.h"
 
+using namespace ODRAW;
 // 15
 CHomePlateType::CHomePlateType()
 {

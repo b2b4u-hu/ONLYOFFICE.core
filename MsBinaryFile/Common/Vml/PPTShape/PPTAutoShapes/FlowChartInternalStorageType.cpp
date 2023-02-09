@@ -32,6 +32,7 @@
 
 #include "FlowChartInternalStorageType.h"
 
+using namespace ODRAW;
 // 113
 CFlowChartInternalStorageType::CFlowChartInternalStorageType()
 {

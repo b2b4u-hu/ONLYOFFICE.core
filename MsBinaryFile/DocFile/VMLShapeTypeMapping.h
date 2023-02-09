@@ -49,6 +49,6 @@ namespace DocFileFormat
 		virtual void Apply( IVisitable* visited );
 
 		/// Returns the id of the referenced type
-		static std::wstring GenerateTypeId (const ShapeType* pShape);
+        static std::wstring GenerateTypeId (const boost::shared_ptr<ODRAW::CPPTShape> pShape);
 	};
 }

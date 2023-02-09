@@ -32,6 +32,8 @@
 
 #include "ActionButtonDocument.h"
 
+using namespace ODRAW;
+
 // 198
 CActionButtonDocType::CActionButtonDocType()
 {

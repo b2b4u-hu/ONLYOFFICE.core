@@ -32,6 +32,7 @@
 
 #include "RightArrowCalloutType.h"
 
+using namespace ODRAW;
 // 78
 CRightArrowCalloutType::CRightArrowCalloutType()
 {

@@ -32,6 +32,7 @@
 
 #include "FlowChartConnectorType.h"
 
+using namespace ODRAW;
 // 120
 CFlowChartConnectorType::CFlowChartConnectorType()
 {
