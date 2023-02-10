@@ -114,10 +114,10 @@ public:
 		}
 		else if (m_classType == NSBaseShape::ppt)
 		{
-			m_pShape = CPPTShape::CreateByType((PPTShapes::ShapeType)ShapeType_ );
-			if (m_pShape == NULL)
+            m_pShape = ODRAW::CPPTShape::CreateByType((PPTShapes::ShapeType)ShapeType_ );
+            if (m_pShape.get() == nullptr)
 			{
-				m_pShape = CBaseShapePtr(new CPPTShape());
+                m_pShape = ODRAW::CBaseShapePtr(new ODRAW::CPPTShape());
 				m_pShape->SetType(NSBaseShape::ppt, ShapeType_);
 			}
 
@@ -142,8 +142,8 @@ public:
 
 	void setBaseShape(CBaseShapePtr pShape)
 	{
-		CPPTXShape *pptxShape = dynamic_cast<CPPTXShape*>(pShape.get());
-		CPPTShape *pptShape = dynamic_cast<CPPTShape*>(pShape.get());
+        auto pptxShape = dynamic_cast<CPPTXShape*>(pShape.get());
+        auto pptShape = dynamic_cast<ODRAW::CPPTShape*>(pShape.get());
 
 		if (pptxShape)	m_classType = NSBaseShape::pptx;
 		if (pptShape)	m_classType = NSBaseShape::ppt;
@@ -216,13 +216,13 @@ public:
 		}
 		else if(_T("shape") == root.GetName())
 		{
-			m_pShape = CBaseShapePtr(new CPPTShape());
+            m_pShape = CBaseShapePtr(new ODRAW::CPPTShape());
 
 			SetCoordSize(root);
 			SetPen		(root);
 			SetBrush	(root);
 			
-			CPPTShape* ppt_shape = dynamic_cast<CPPTShape*>(m_pShape.get());
+            auto ppt_shape = dynamic_cast<ODRAW::CPPTShape*>(m_pShape.get());
 
 			return ppt_shape ? ppt_shape->LoadFromXML(root) : false;
 		}

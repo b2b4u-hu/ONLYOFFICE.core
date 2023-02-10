@@ -32,6 +32,8 @@
 
 #include "CustomGeomShape.h"
 
+using namespace ODRAW;
+
 namespace NSCustomVML
 {   
 		CSegment::CSegment(ODRAW::RulesType eType, WORD nCount)
@@ -46,7 +48,7 @@ namespace NSCustomVML
                 }
 
                 CSegment::CSegment(const ODRAW::MSOPATHINFO &oSrc) :
-                    m_eRuler(oSrc.m_eRuler),
+                    m_eRuler((ODRAW::RulesType)oSrc.m_eRuler),
                     m_nCount(oSrc.m_nCount)
                 {
                 }
@@ -341,7 +343,7 @@ namespace NSCustomVML
                 }
 
                 CGuide::CGuide(const ODRAW::MSOSG &oSrc) :
-                    m_eType(oSrc.m_eTyp),
+                    m_eType((NSGuidesVML::FormulaType)oSrc.m_eType),
                     m_param_type1(oSrc.m_param_type1),
                     m_param_type2(oSrc.m_param_type2),
                     m_param_type3(oSrc.m_param_type3),
@@ -577,14 +579,14 @@ namespace NSCustomVML
 
                 void CCustomVML::AddSegment(const CSegment &segment)
                 {
-                    if (0 == oInfo.m_nCount &&
+                    if (0 == segment.m_nCount &&
                         ODRAW::rtEnd        != segment.m_eRuler &&
                         ODRAW::rtNoFill     != segment.m_eRuler &&
                         ODRAW::rtNoStroke   != segment.m_eRuler &&
                         ODRAW::rtClose      != segment.m_eRuler)
                         return;
 
-                    for (int i = 0 ; i < count; i++)
+                    for (int i = 0 ; i < segment.m_nCount; i++)
                         m_arSegments.push_back(segment);
                 }
 
@@ -739,7 +741,7 @@ namespace NSCustomVML
                 m_bIsPathPresent = true;
 
             for (size_t ind = 0; ind <  values.size(); ++ind)
-                AddSegments(values[ind]);
+                AddSegment(values[ind]);
 
         }
 		void CCustomVML::LoadSegments(CProperty* pProperty)

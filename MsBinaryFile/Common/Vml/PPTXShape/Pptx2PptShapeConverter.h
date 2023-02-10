@@ -40,7 +40,7 @@ namespace NSGuidesVML
     {
     private:
         std::vector<CSlice> m_arSlices;
-        CPPTShape* pPPTShape;
+        ODRAW::CPPTShape* pPPTShape;
         std::map<std::wstring, LONG> m_arMapFormula;
         std::map<std::wstring, LONG> m_arMapAdj;
         std::vector<CSlicePath> m_arSlicesPath;
@@ -58,7 +58,7 @@ namespace NSGuidesVML
     public:
 		CConverterPPTXPPT();
 
-        inline CPPTShape* GetConvertedShape()
+        inline ODRAW::CPPTShape* GetConvertedShape()
         {
             return pPPTShape;
         }

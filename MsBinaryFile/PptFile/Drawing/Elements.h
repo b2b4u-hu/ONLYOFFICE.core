@@ -99,7 +99,7 @@ public:
     void CalculateColor(CColor& oColor, CSlide* pSlide, CTheme* pTheme, CLayout* pLayout);
 
     std::wstring ConvertPPTShapeToPPTX(bool bIsNamespace = false);
-    std::wstring ConvertPPTtoPPTX(CPPTShape* pPPTShape, const NSGuidesVML::CFormParam& pCoef, bool bIsNamespace = false);
+    std::wstring ConvertPPTtoPPTX(ODRAW::CPPTShape* pPPTShape, const NSGuidesVML::CFormParam& pCoef, bool bIsNamespace = false);
 };
 
 class CAudioElement : public CImageElement

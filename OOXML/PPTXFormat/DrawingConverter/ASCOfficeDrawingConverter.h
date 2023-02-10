@@ -49,8 +49,10 @@ class COfficeFontPicker;
 
 class CShape;
 typedef boost::shared_ptr<CShape> CShapePtr;
-
+namespace ODRAW
+{
 class CPPTShape;
+}
 
 namespace XmlUtils
 {
@@ -281,14 +283,14 @@ namespace NSBinPptxRW
 		void ConvertShape		(PPTX::Logic::SpTreeElem *result, XmlUtils::CXmlNode& oNode, std::wstring**& pMainProps, bool bIsTop = true);
 		void ConvertGroup		(PPTX::Logic::SpTreeElem *result, XmlUtils::CXmlNode& oNode, std::wstring**& pMainProps, bool bIsTop = true);
 		void ConvertDrawing		(PPTX::Logic::SpTreeElem *result, XmlUtils::CXmlNode& oNode, std::wstring**& pMainProps, bool bIsTop = true);
-		void ConvertWordArtShape(PPTX::Logic::SpTreeElem* result, XmlUtils::CXmlNode& oNode, CPPTShape* pPPTShape);
+        void ConvertWordArtShape(PPTX::Logic::SpTreeElem* result, XmlUtils::CXmlNode& oNode, ODRAW::CPPTShape* pPPTShape);
 
-        std::wstring GetVMLShapeXml      (CPPTShape* pPPTShape);
+        std::wstring GetVMLShapeXml      (ODRAW::CPPTShape* pPPTShape);
         std::wstring GetVMLShapeXml      (PPTX::Logic::SpTreeElem& oElem);
 
-        void CheckBrushShape        (PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, CPPTShape* pPPTShape);
-        void CheckPenShape          (PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, CPPTShape* pPPTShape);
-		void CheckBorderShape		(PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, CPPTShape* pPPTShape);
+        void CheckBrushShape        (PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, ODRAW::CPPTShape* pPPTShape);
+        void CheckPenShape          (PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, ODRAW::CPPTShape* pPPTShape);
+        void CheckBorderShape		(PPTX::Logic::SpTreeElem* oElem, XmlUtils::CXmlNode& oNode, ODRAW::CPPTShape* pPPTShape);
 
         void LoadCoordSize			(XmlUtils::CXmlNode& oNode, ::CShapePtr pShape);
 		void LoadCoordPos			(XmlUtils::CXmlNode& oNode, ::CShapePtr pShape);

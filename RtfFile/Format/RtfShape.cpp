@@ -1249,8 +1249,8 @@ std::wstring RtfShape::RenderToOOXBegin(RenderParameter oRenderParameter)
 		//Custom
 		if (!m_aPVerticles.empty() || !m_aPSegmentInfo.empty())
 		{
-			CBaseShapePtr base_shape = CPPTShape::CreateByType((PPTShapes::ShapeType)m_nShapeType);
-			CPPTShape *custom_shape = dynamic_cast<CPPTShape*>(base_shape.get());
+            ODRAW::CBaseShapePtr base_shape = ODRAW::CPPTShape::CreateByType((PPTShapes::ShapeType)m_nShapeType);
+            ODRAW::CPPTShape *custom_shape = dynamic_cast<ODRAW::CPPTShape*>(base_shape.get());
 			if (custom_shape)
 			{
 				custom_shape->m_bCustomShape = true;
