@@ -57,7 +57,7 @@
         }SIZE;
     #endif
 #else
-	#include <windows.h>
+    #include <windows.h>
 #endif
 
 namespace XLS
@@ -80,8 +80,8 @@ public:
 	virtual void load(XLS::CFRecord& record);
 
 	_UINT32 cbSize;
-	RECT rcBounds;
-	POINT ptSize;
+    RECT rcBounds;
+    POINT ptSize;
 	_UINT32 cbSave;
 	unsigned char compression;
 	unsigned char filter;

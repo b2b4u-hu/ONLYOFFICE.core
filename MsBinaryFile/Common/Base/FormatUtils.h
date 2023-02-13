@@ -62,31 +62,35 @@
 #define GETBITS(from, numL, numH) ((from & (((1 << (numH - numL + 1)) - 1) << numL)) >> numL)
 #define GETBIT(from, num) ((from & (1 << num)) != 0)
 
+#if !defined(_WIN32) && !defined(_WIN64)
+    #ifndef customTagPoint
+        #define customTagPoint
+        typedef struct tagPOINT
+        {
+            _INT32  x;
+            _INT32  y;
+        } POINT;
+        typedef struct tagRECT
+        {
+            _INT32    left;
+            _INT32    top;
+            _INT32    right;
+            _INT32    bottom;
+        } RECT;
+        typedef struct tagSIZE
+        {
+            _INT32 cx;
+            _INT32 cy;
+        }SIZE;
+    #endif
+#endif
+
 namespace DocFileFormat
 {
     typedef unsigned char   Bool8;
     typedef unsigned short  Bool16;
     typedef unsigned int    Bool32;
 
-#if !defined(_WIN32) && !defined(_WIN64)
-    struct POINT
-    {
-        int32_t x;
-        int32_t y;
-    };
-    struct SIZE
-    {
-        int32_t cx;
-        int32_t cy;
-    };
-    struct RECT
-    {
-        int32_t left;
-        int32_t top;
-        int32_t right;
-        int32_t bottom;
-    };
-#endif
 
     struct DeleteDynamicObject
 	{
