@@ -399,6 +399,7 @@ SOURCES += \
 	../../../PPTXFormat/Presentation/SldSz.cpp
 
 HEADERS += \
+	../../../../MsBinaryFile/Common/Vml/PointRectSize.h \
 	pptx_format.h \
 	\
 	../../../../MsBinaryFile/Common/Vml/Common.h \

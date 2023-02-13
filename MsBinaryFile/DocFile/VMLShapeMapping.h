@@ -42,14 +42,6 @@
 #include "EmuValue.h"
 #include "FixedPointNumber.h"
 
-#include "OfficeDrawing/BlipStoreContainer.h"
-#include "OfficeDrawing/GroupShapeRecord.h"
-#include "OfficeDrawing/ChildAnchor.h"
-#include "OfficeDrawing/ClientAnchor.h"
-#include "OfficeDrawing/Shapetypes/LineType.h"
-#include "OfficeDrawing/MetafilePictBlip.h"
-#include "OfficeDrawing/BitmapBlip.h"
-
 namespace DocFileFormat
 {
 	class VMLShapeMapping : public PropertiesMapping, public IMapping

@@ -34,6 +34,7 @@
 #include "../Drawing/TextAttributesEx.h"
 #include "SlidePersist.h"
 #include "../../../OfficeUtils/src/OfficeUtils.h"
+#include "../../Common/Vml/PointRectSize.h"
 
 namespace CRYPT
 {
@@ -71,28 +72,6 @@ struct SFileIdCluster
 
     void ReadFromStream(POLE::Stream* pStream);
 };
-#if !defined(_WIN32) && !defined (_WIN64)
-#ifndef customTagPoint
-#define customTagPoint
-typedef struct tagPOINT
-{
-    _INT32  x;
-    _INT32  y;
-} POINT;
-typedef struct tagRECT
-{
-    _INT32    left;
-    _INT32    top;
-    _INT32    right;
-    _INT32    bottom;
-} RECT;
-typedef struct tagSIZE
-{
-    _INT32 cx;
-    _INT32 cy;
-}SIZE;
-#endif
-#endif
 
 namespace Gdiplus
 {

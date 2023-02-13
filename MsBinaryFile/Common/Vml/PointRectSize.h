@@ -1,4 +1,4 @@
-﻿/*
+/*
  * (c) Copyright Ascensio System SIA 2010-2019
  *
  * This program is a free software product. You can redistribute it and/or
@@ -31,44 +31,32 @@
  */
 #pragma once
 
-#include "../BiffStructure.h"
-#include "OfficeArtCOLORREF.h"
-#include "../FixedPoint.h"
-#include "../../../../../Common/Vml/PointRectSize.h"
+#include "../../../OOXML/Base/Base.h"
 
-namespace XLS
-{
-	class CFRecord;
-}
+#define GETBITS(from, numL, numH) ((from & (((1 << (numH - numL + 1)) - 1) << numL)) >> numL)
+#define GETBIT(from, num) ((from & (1 << num)) != 0)
 
-namespace ODRAW
-{
-
-class OfficeArtMetafileHeader : public XLS::BiffStructure
-{
-	BASE_STRUCTURE_DEFINE_CLASS_NAME(OfficeArtMetafileHeader)
-public:
-	XLS::BiffStructurePtr clone();
-
-	static const XLS::ElementType	type = XLS::typeOfficeArtMetafileHeader;
-	
-
-	virtual void load(XLS::CFRecord& record);
-
-	_UINT32 cbSize;
-    RECT rcBounds;
-    POINT ptSize;
-	_UINT32 cbSave;
-	unsigned char compression;
-	unsigned char filter;
-};
-
-typedef boost::shared_ptr<OfficeArtMetafileHeader> OfficeArtMetafileHeaderPtr;
-
-
-
-
-
-
-
-} // namespace XLS
+#if !defined(_WIN32) && !defined(_WIN64)
+    #ifndef customTagPoint
+        #define customTagPoint
+        typedef struct tagPOINT
+        {
+            _INT32  x;
+            _INT32  y;
+        } POINT;
+        typedef struct tagRECT
+        {
+            _INT32    left;
+            _INT32    top;
+            _INT32    right;
+            _INT32    bottom;
+        } RECT;
+        typedef struct tagSIZE
+        {
+            _INT32 cx;
+            _INT32 cy;
+        }SIZE;
+    #endif
+#else
+    #include <windows.h>
+#endif

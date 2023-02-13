@@ -58,32 +58,7 @@
 #include "../../../UnicodeConverter/UnicodeConverter.h"
 
 #include <boost/format.hpp>
-
-#define GETBITS(from, numL, numH) ((from & (((1 << (numH - numL + 1)) - 1) << numL)) >> numL)
-#define GETBIT(from, num) ((from & (1 << num)) != 0)
-
-#if !defined(_WIN32) && !defined(_WIN64)
-    #ifndef customTagPoint
-        #define customTagPoint
-        typedef struct tagPOINT
-        {
-            _INT32  x;
-            _INT32  y;
-        } POINT;
-        typedef struct tagRECT
-        {
-            _INT32    left;
-            _INT32    top;
-            _INT32    right;
-            _INT32    bottom;
-        } RECT;
-        typedef struct tagSIZE
-        {
-            _INT32 cx;
-            _INT32 cy;
-        }SIZE;
-    #endif
-#endif
+#include "../Vml/PointRectSize.h"
 
 namespace DocFileFormat
 {

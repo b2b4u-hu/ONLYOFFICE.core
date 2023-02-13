@@ -35,7 +35,6 @@
 #include "PictureDescriptor.h"
 #include "TwipsValue.h"
 #include "ConversionContext.h"
-#include "OfficeDrawing/Shapetypes/PictureFrameType.h"
 #include "OfficeDrawing/Shape.h"
 #include "OfficeDrawing/MetafilePictBlip.h"
 #include "OfficeDrawing/BitmapBlip.h"
