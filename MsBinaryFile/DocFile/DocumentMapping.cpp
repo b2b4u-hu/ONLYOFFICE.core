@@ -40,6 +40,7 @@
 #include "../Common/Base/FormatUtils.h"
 
 #include <boost/algorithm/string.hpp>
+#include "../Common/Vml/PPTShape/PptShapeEnum.h"
 
 namespace DocFileFormat
 {
@@ -1016,7 +1017,7 @@ namespace DocFileFormat
 
 					if (oPicture.shapeContainer)
 					{
-						if (oPicture.shapeContainer->m_nShapeType != msosptPictureFrame)
+                        if (oPicture.shapeContainer->m_nShapeType != PPTShapes::ShapeType::sptCFrame)
 							bPicture = false;//шаблон 1.doc картинка в колонтитуле
 
 						m_bSkip = oPicture.shapeContainer->m_bSkip;

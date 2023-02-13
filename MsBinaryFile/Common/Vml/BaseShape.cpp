@@ -188,5 +188,12 @@ bool CBaseShape::SetToDublicate(CBaseShape* Shape)
 		Shape->m_arHandles.push_back(m_arHandles[i]);
 
 	Shape->m_strTransformXml = m_strTransformXml;
-	return true;
+    return true;
+}
+
+std::wstring CBaseShape::Limo() const
+{
+    if (m_lLimoX > -1 && m_lLimoY > -1)
+        return std::to_wstring(m_lLimoX) + L"," + std::to_wstring(m_lLimoY);
+    return L"";
 }

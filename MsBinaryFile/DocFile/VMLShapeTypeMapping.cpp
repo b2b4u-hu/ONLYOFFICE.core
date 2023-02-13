@@ -31,8 +31,9 @@
  */
 
 #include "VMLShapeTypeMapping.h"
-#include "OfficeDrawing/Shapetypes/OvalType.h"
-#include "OfficeDrawing/Shapetypes/WordArtText.h"
+//#include "../Common/Vml/PPTShape/PPTAutoShapes/"
+//#include "OfficeDrawing/Shapetypes/WordArtText.h"
+#include "../Common/Vml/PPTShape/PPTAutoShapes/EllipseType.h"
 #include "../XlsFile/Format/Logic/Biff_structures/ODRAW/OfficeArtFOPTE.h"
 
 namespace DocFileFormat
@@ -54,12 +55,12 @@ namespace DocFileFormat
 	{
 		ShapeType* pShape = static_cast<ShapeType*>( visited );
 
-		if (pShape && ( typeid(*pShape) != typeid(OvalType)))
+        if (pShape && ( typeid(*(pShape->shape)) != typeid(ODRAW::CEllipseType)))
 		{
             m_pXmlWriter->WriteNodeBegin( L"v:shapetype", true );
 
 			// ID
-            m_pXmlWriter->WriteAttribute( L"id", GenerateTypeId( pShape ));
+            m_pXmlWriter->WriteAttribute( L"id", GenerateTypeId( pShape->shape ));
 
 			// Coordinate System
             m_pXmlWriter->WriteAttribute( L"coordsize", L"21600,21600");
@@ -68,23 +69,23 @@ namespace DocFileFormat
             m_pXmlWriter->WriteAttribute( L"o:spt", FormatUtils::IntToWideString( pShape->GetTypeCode() ));
 
 			// Adj
-			if (pShape->AdjustmentValues.length())
+            if (pShape->shape->m_arAdjustments.size())
                 m_pXmlWriter->WriteAttribute( L"adj", pShape->AdjustmentValues);
 
 			// Path
-			if (!pShape->Path.empty())
-                m_pXmlWriter->WriteAttribute( L"path", pShape->Path);
+            if (!pShape->shape->m_strPath.empty())
+                m_pXmlWriter->WriteAttribute( L"path", pShape->shape->m_strPath);
 			else if (_isInlineShape)
                 m_pXmlWriter->WriteAttribute( L"path", L"m@4@5l@4@11@9@11@9@5xe");
 
 
 			//Default fill / stroke
-			if ( !pShape->Filled )
+            if ( !pShape->shape->m_bIsFilled )
 			{
                 m_pXmlWriter->WriteAttribute( L"filled" , L"f");
 			}
 
-			if ( !pShape->Stroked )
+            if ( !pShape->shape->m_bIsStroked )
 			{
                 m_pXmlWriter->WriteAttribute( L"stroked", L"f");
 			}
@@ -97,26 +98,26 @@ namespace DocFileFormat
             m_pXmlWriter->WriteNodeEnd( L"", true, false );//закрытие атрибутов
 
 			//Textpath
-			if (!pShape->Textpath.empty())
+            if (!pShape->shape->m_strPath.empty())
 			{
                 m_pXmlWriter->WriteNodeBegin( L"v:textpath", true );
-				m_pXmlWriter->WriteString( pShape->Textpath );
+                m_pXmlWriter->WriteString( pShape->shape->m_strPath );
                 m_pXmlWriter->WriteNodeEnd( L"", true );
 			}
 			// Stroke
             m_pXmlWriter->WriteNodeBegin( L"v:stroke", true );
-            m_pXmlWriter->WriteAttribute( L"joinstyle", FormatUtils::MapValueToWideString( pShape->Joins, &JoinStyleMap[0][0], 3, 6 ));
+            m_pXmlWriter->WriteAttribute( L"joinstyle", FormatUtils::MapValueToWideString( pShape->shape->m_eJoin, &JoinStyleMap[0][0], 3, 6 ));
             m_pXmlWriter->WriteNodeEnd( L"", true );
 
 			// Formulas
-			if ((int)pShape->Formulas.size())
+            if ((int)pShape->shape->m_oManager.m_arFormulas.size())
 			{
                 m_pXmlWriter->WriteNodeBegin( L"v:formulas");
 
-				for ( std::list<std::wstring>::iterator iter = pShape->Formulas.begin(); iter != pShape->Formulas.end(); iter++ )
+                for ( auto iter = pShape->shape->m_oManager.m_arFormulas.begin(); iter != pShape->shape->m_oManager.m_arFormulas.end(); iter++ )
 				{
                     m_pXmlWriter->WriteNodeBegin( L"v:f", true );
-                    m_pXmlWriter->WriteAttribute( L"eqn", *iter );
+                    m_pXmlWriter->WriteAttribute( L"eqn", (*iter) );
                     m_pXmlWriter->WriteNodeEnd( L"", true );
 				}
 
@@ -145,13 +146,13 @@ namespace DocFileFormat
 			}
 			else
 			{
-				if (pShape->ShapeConcentricFill)
+                if (pShape->shape->m_bConcentricFill)
                     m_pXmlWriter->WriteAttribute( L"gradientshapeok", L"t" );
 
-				if (pShape->Limo.length())
-                    m_pXmlWriter->WriteAttribute( L"limo", pShape->Limo );
+                if (pShape->shape->Limo().length())
+                    m_pXmlWriter->WriteAttribute( L"limo", pShape->shape->Limo() );
 
-				if (pShape->ConnectorLocations.length())
+                if (pShape->shape->ConnectorLocations.length())
 				{
                     m_pXmlWriter->WriteAttribute( L"o:connecttype", L"custom");
                     m_pXmlWriter->WriteAttribute( L"o:connectlocs", pShape->ConnectorLocations);

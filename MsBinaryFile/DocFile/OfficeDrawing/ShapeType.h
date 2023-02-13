@@ -61,6 +61,6 @@ namespace DocFileFormat
         /// Speicfies the locked properties of teh shape.
         /// By default nothing is locked.
         ODRAW::OfficeArtFOPTEPtr Lock;
-        std::shared_ptr<ODRAW::CPPTShape> shape;
+        boost::shared_ptr<ODRAW::CPPTShape> shape;
     };
 }

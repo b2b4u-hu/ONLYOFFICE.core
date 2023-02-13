@@ -41,6 +41,8 @@
 #include "TwipsValue.h"
 #include "EmuValue.h"
 #include "FixedPointNumber.h"
+#include "OfficeDrawing/ChildAnchor.h"
+#include "OfficeDrawing/BlipStoreContainer.h"
 
 namespace DocFileFormat
 {

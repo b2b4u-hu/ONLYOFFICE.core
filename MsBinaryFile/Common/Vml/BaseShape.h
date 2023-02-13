@@ -77,8 +77,8 @@ namespace ODRAW
         std::wstring						m_strPath;
         std::wstring						m_strRect;
 
-        LONG								m_lLimoX;
-        LONG								m_lLimoY;
+        LONG								m_lLimoX = -1;
+        LONG								m_lLimoY = -1;
 
         CPath								m_oPath;
 
@@ -110,5 +110,7 @@ namespace ODRAW
 
 		virtual bool SetProperties(CBaseShape* Shape);
 		virtual bool SetToDublicate(CBaseShape* Shape);
+
+        std::wstring Limo()const;
     };
 }

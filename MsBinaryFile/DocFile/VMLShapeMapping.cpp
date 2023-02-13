@@ -34,11 +34,12 @@
 #include "VMLShapeMapping.h"
 #include "TextboxMapping.h"
 
-#include "OfficeDrawing/Shapetypes/LineType.h"
-#include "OfficeDrawing/Shapetypes/OvalType.h"
-#include "OfficeDrawing/Shapetypes/RectangleType.h"
-#include "OfficeDrawing/Shapetypes/RoundedRectangleType.h"
+#include "../Common/Vml/PPTShape/PPTAutoShapes/LineType.h"
+#include "../Common/Vml/PPTShape/PPTAutoShapes/EllipseType.h"
+#include "../Common/Vml/PPTShape/PPTAutoShapes/RectangleType.h"
+#include "../Common/Vml/PPTShape/PPTAutoShapes/RoundedRectangleType.h"
 #include "OfficeDrawing/OfficeArtClientTextbox.h"
+#include "OfficeDrawing/GroupShapeRecord.h"
 
 #include "DrawingPrimitives.h"
 
@@ -268,7 +269,7 @@ namespace DocFileFormat
 			}
 			m_pXmlWriter->WriteAttribute( L"style", FormatUtils::XmlEncode(buildStyle(pShape, pAnchor, options, pContainer->m_nIndex, twistDimensions)));
 
-			if (pShape->is<LineType>())
+            if (pShape->is<ODRAW::CLineType>())
 			{
 				//append "from" and  "to" attributes
 				m_pXmlWriter->WriteAttribute(L"from", GetLineFrom(pAnchor, twistDimensions));
@@ -1273,19 +1274,19 @@ namespace DocFileFormat
 			{
 				m_pXmlWriter->WriteNodeEnd( L"v:background" );
 			}
-			else if (pShape->is<OvalType>())
+            else if (pShape->is<ODRAW::CEllipseType>())
 			{
 				m_pXmlWriter->WriteNodeEnd( L"v:oval" );
 			}
-			else if (pShape->is<RoundedRectangleType>())
+            else if (pShape->is<ODRAW::CRoundedRectangleType>())
 			{
 				m_pXmlWriter->WriteNodeEnd( L"v:roundrect" );
 			}
-			else if (pShape->is<RectangleType>())
+            else if (pShape->is<ODRAW::CRectangleType>())
 			{
 				m_pXmlWriter->WriteNodeEnd( L"v:rect" );
 			}
-			else if (pShape->is<LineType>())
+            else if (pShape->is<ODRAW::CLineType>())
 			{
 				m_pXmlWriter->WriteNodeEnd( L"v:line" );
 			}
@@ -1937,7 +1938,7 @@ namespace DocFileFormat
 		
 		//don't append the dimension info to lines, 
 		// because they have "from" and "to" attributes to decline the dimension
-		if (false == shape->is<LineType>())
+        if (false == shape->is<ODRAW::CLineType>())
 		{
 			if ( (m_pSpa != NULL) && ( anchor == NULL ) )
 			{
